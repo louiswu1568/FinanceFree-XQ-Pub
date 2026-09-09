@@ -231,6 +231,24 @@
           <span>🔓 解鎖歷史存檔庫</span>
         </button>
       </div>
+
+      <!-- 訪客 LINE 申辦通道 (方案 B) -->
+      <div class="vault-apply-divider">
+        <span>訪客權限申請</span>
+      </div>
+
+      <div class="vault-apply-card">
+        <div class="apply-card-left">
+          <span class="line-badge-icon">📲</span>
+          <div>
+            <div class="apply-card-title">尚未取得通行密鑰？</div>
+            <div class="apply-card-sub">加入 LINE 官方機器人申請訪客授權與一鍵解鎖 Token</div>
+          </div>
+        </div>
+        <button type="button" id="btn-open-line-apply" class="btn-line-apply">
+          <span>申請密鑰</span>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -273,6 +291,17 @@
     }
 
     document.addEventListener('DOMContentLoaded', async () => {
+
+      const openLineBtn = document.getElementById('btn-open-line-apply');
+      const lineModal = document.getElementById('line-apply-modal');
+      const closeLineBtn = document.getElementById('btn-close-line-modal');
+      const cancelLineBtn = document.getElementById('btn-cancel-line-modal');
+
+      if (openLineBtn && lineModal) openLineBtn.addEventListener('click', () => lineModal.style.display = 'flex');
+      if (closeLineBtn && lineModal) closeLineBtn.addEventListener('click', () => lineModal.style.display = 'none');
+      if (cancelLineBtn && lineModal) cancelLineBtn.addEventListener('click', () => lineModal.style.display = 'none');
+      window.addEventListener('click', (e) => { if (e.target === lineModal) lineModal.style.display = 'none'; });
+    
       const container = document.getElementById('archive-list');
       const searchInput = document.getElementById('archive-search');
       const vaultModal = document.getElementById('vault-modal');
@@ -419,5 +448,58 @@
       }
     });
   </script>
+
+  <!-- LINE Official Bot Application Modal (方案 B 申辦中心) -->
+  <div id="line-apply-modal" class="modal-backdrop" style="display:none;">
+    <div class="line-apply-modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <span class="badge badge-safe" style="background:#06c755; color:#fff; border:none;">LINE OFFICIAL BOT</span>
+        <button type="button" id="btn-close-line-modal" style="background:none; border:none; color:#94a3b8; font-size:1.3rem; cursor:pointer;">&times;</button>
+      </div>
+      <h2 style="font-size:1.3rem; font-weight:700; color:#f8fafc; margin-bottom:6px;">📲 LINE 官方帳號 · 訪客密鑰申請</h2>
+      <p style="font-size:0.84rem; color:#94a3b8; line-height:1.5;">
+        本報告系統為 Louis Wu 專利個人量化資產儀表板。如需查閱請透過 LINE 官方帳號提交訪客申請：
+      </p>
+
+      <div class="line-steps-list">
+        <div class="line-step-item">
+          <div class="step-num-badge">1</div>
+          <div>
+            <div class="step-content-title">加入 LINE 官方帳號</div>
+            <div class="step-content-desc">點擊下方按鈕或於 LINE 搜尋官方機器人並加入好友。</div>
+          </div>
+        </div>
+        <div class="line-step-item">
+          <div class="step-num-badge">2</div>
+          <div>
+            <div class="step-content-title">傳送通關申請文字</div>
+            <div class="step-content-desc">在 LINE 對話框傳送：<code>【申請 FinanceFree-XQ 訪客密鑰】您的姓名 / 單位與用途</code>。</div>
+          </div>
+        </div>
+        <div class="line-step-item">
+          <div class="step-num-badge">3</div>
+          <div>
+            <div class="step-content-title">取得 1-Click 解密連結</div>
+            <div class="step-content-desc">核可後，機器人將直接回傳附帶 Token 之專屬連結，點擊即可無縫解鎖！</div>
+          </div>
+        </div>
+      </div>
+
+      <a href="https://line.me/R/ti/p/@financefree-xq" target="_blank" class="line-action-btn-primary">
+        <span>💬 開啟 LINE 官方帳號申請密鑰</span>
+      </a>
+
+      <div style="text-align:center; margin-top:10px;">
+        <span style="font-size:0.75rem; color:#64748b;">
+          備用聯絡信箱：<a href="mailto:louiswu1568@gmail.com?subject=[申請訪客密鑰]%20FinanceFree-XQ%20歷史存檔庫" style="color:#38bdf8; text-decoration:underline;">louiswu1568@gmail.com</a>
+        </span>
+      </div>
+
+      <button type="button" class="btn-close-apply" id="btn-cancel-line-modal">
+        返回密碼輸入
+      </button>
+    </div>
+  </div>
+
 </body>
 </html>

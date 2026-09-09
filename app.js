@@ -106,6 +106,31 @@ async function decryptReportPayload(encObj, passkey) {
    3. Security Vault Auth & Session Management
    ========================================== */
 function initVaultUI() {
+  // LINE Application Modal Handlers (方案 B)
+  const openLineBtn = document.getElementById('btn-open-line-apply');
+  const lineModal = document.getElementById('line-apply-modal');
+  const closeLineBtn = document.getElementById('btn-close-line-modal');
+  const cancelLineBtn = document.getElementById('btn-cancel-line-modal');
+
+  if (openLineBtn && lineModal) {
+    openLineBtn.addEventListener('click', () => {
+      lineModal.style.display = 'flex';
+    });
+  }
+  if (closeLineBtn && lineModal) {
+    closeLineBtn.addEventListener('click', () => {
+      lineModal.style.display = 'none';
+    });
+  }
+  if (cancelLineBtn && lineModal) {
+    cancelLineBtn.addEventListener('click', () => {
+      lineModal.style.display = 'none';
+    });
+  }
+  window.addEventListener('click', (e) => {
+    if (e.target === lineModal) lineModal.style.display = 'none';
+  });
+
   const unlockBtn = document.getElementById('btn-vault-unlock');
   const passInput = document.getElementById('vault-passkey-input');
   const toggleEye = document.getElementById('vault-toggle-visibility');
