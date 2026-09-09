@@ -1,12 +1,18 @@
-// FinanceFree-XQ-Pub (Okinawa 2026 Glassmorphism Controller)
-// Renders Real Financial Data, 4 Accounts, 10 Scenarios & Live KPIs
+// FinanceFree-XQ-Pub (Okinawa 2026 Glassmorphism Controller & AES-256 Vault)
+// Client-Side Zero-Knowledge Decryption & Dynamic LINE 1-Click Access Engine
+
+let currentRawData = null;
 
 document.addEventListener('DOMContentLoaded', () => {
   initTabs();
   initModal();
-  loadReportData();
+  initVaultUI();
+  initDashboardAuth();
 });
 
+/* ==========================================
+   1. Tabs & Scenario Preview Modal
+   ========================================== */
 function initTabs() {
   const pills = document.querySelectorAll('.nav-pill');
   const panes = document.querySelectorAll('.tab-pane');
@@ -50,7 +56,177 @@ window.showScenarioPreview = function(id, name, channel, previewText) {
   }
 };
 
-async function loadReportData() {
+/* ==========================================
+   2. Web Crypto API: AES-256-GCM Engine
+   ========================================== */
+function base64ToUint8Array(base64) {
+  const binaryString = window.atob(base64);
+  const len = binaryString.length;
+  const bytes = new Uint8Array(len);
+  for (let i = 0; i < len; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  return bytes;
+}
+
+async function deriveKeyFromPasskey(passkey) {
+  const enc = new TextEncoder();
+  const hashBuffer = await window.crypto.subtle.digest('SHA-256', enc.encode(passkey.trim()));
+  return await window.crypto.subtle.importKey(
+    'raw',
+    hashBuffer,
+    { name: 'AES-GCM' },
+    false,
+    ['decrypt']
+  );
+}
+
+async function decryptReportPayload(encObj, passkey) {
+  if (!encObj || !encObj.encrypted) {
+    return encObj; // Plaintext format
+  }
+  try {
+    const cryptoKey = await deriveKeyFromPasskey(passkey);
+    const iv = base64ToUint8Array(encObj.iv);
+    const ciphertext = base64ToUint8Array(encObj.ciphertext);
+    const decryptedBuf = await window.crypto.subtle.decrypt(
+      { name: 'AES-GCM', iv: iv, tagLength: 128 },
+      cryptoKey,
+      ciphertext
+    );
+    const dec = new TextDecoder('utf-8');
+    return JSON.parse(dec.decode(decryptedBuf));
+  } catch (err) {
+    console.error('Decryption failed with provided passkey:', err);
+    throw new Error('DECRYPTION_FAILED');
+  }
+}
+
+/* ==========================================
+   3. Security Vault Auth & Session Management
+   ========================================== */
+function initVaultUI() {
+  const unlockBtn = document.getElementById('btn-vault-unlock');
+  const passInput = document.getElementById('vault-passkey-input');
+  const toggleEye = document.getElementById('vault-toggle-visibility');
+
+  if (toggleEye && passInput) {
+    toggleEye.addEventListener('click', () => {
+      if (passInput.type === 'password') {
+        passInput.type = 'text';
+        toggleEye.textContent = '🔒';
+      } else {
+        passInput.type = 'password';
+        toggleEye.textContent = '👁️';
+      }
+    });
+  }
+
+  if (unlockBtn && passInput) {
+    unlockBtn.addEventListener('click', () => {
+      handleManualUnlock(passInput.value);
+    });
+
+    passInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        handleManualUnlock(passInput.value);
+      }
+    });
+  }
+}
+
+async function handleManualUnlock(passkey) {
+  const errorMsg = document.getElementById('vault-error-msg');
+  const passInput = document.getElementById('vault-passkey-input');
+  if (!passkey || !passkey.trim()) {
+    if (errorMsg) {
+      errorMsg.textContent = '⚠️ 請輸入金庫通行密鑰！';
+      errorMsg.style.display = 'block';
+    }
+    return;
+  }
+
+  try {
+    if (!currentRawData) {
+      currentRawData = await fetchReportJson();
+    }
+
+    const decrypted = await decryptReportPayload(currentRawData, passkey.trim());
+    sessionStorage.setItem('ff_auth_key', passkey.trim());
+    hideVaultModal();
+    updateVaultStatusUI(true);
+    renderAll(decrypted);
+  } catch (err) {
+    if (errorMsg) {
+      errorMsg.textContent = '⚠️ 密鑰錯誤，無法解密資產金庫，請重新確認！';
+      errorMsg.style.display = 'block';
+    }
+    if (passInput) {
+      passInput.focus();
+      passInput.select();
+    }
+  }
+}
+
+function showVaultModal(errorMessage = null) {
+  const modal = document.getElementById('vault-modal');
+  const errorMsg = document.getElementById('vault-error-msg');
+  const passInput = document.getElementById('vault-passkey-input');
+
+  if (errorMsg) {
+    if (errorMessage) {
+      errorMsg.textContent = errorMessage;
+      errorMsg.style.display = 'block';
+    } else {
+      errorMsg.style.display = 'none';
+    }
+  }
+
+  if (modal) {
+    modal.style.display = 'flex';
+  }
+  if (passInput) {
+    setTimeout(() => passInput.focus(), 100);
+  }
+  updateVaultStatusUI(false);
+}
+
+function hideVaultModal() {
+  const modal = document.getElementById('vault-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function updateVaultStatusUI(isUnlocked) {
+  const badge = document.getElementById('vault-status-badge');
+  if (!badge) return;
+
+  if (isUnlocked) {
+    badge.className = 'badge vault-badge-unlocked';
+    badge.textContent = '🔐 金庫已解鎖';
+    badge.setAttribute('title', '已通過身分驗證 · 點擊可重新鎖定');
+  } else {
+    badge.className = 'badge vault-badge-locked';
+    badge.textContent = '🔒 金庫未解鎖';
+    badge.setAttribute('title', '點擊可輸入密鑰解鎖');
+  }
+}
+
+window.promptRelock = function() {
+  const currentKey = sessionStorage.getItem('ff_auth_key');
+  if (currentKey) {
+    if (confirm('是否要重新鎖定安全金庫？\n鎖定後將清除本機暫存金鑰並返回密碼驗證畫面。')) {
+      sessionStorage.removeItem('ff_auth_key');
+      showVaultModal();
+    }
+  } else {
+    showVaultModal();
+  }
+};
+
+/* ==========================================
+   4. Report Fetch & Decryption Pipeline
+   ========================================== */
+async function fetchReportJson() {
   const urlParams = new URLSearchParams(window.location.search);
   const archiveFile = urlParams.get('archive');
   let fetchUrl = './data/latest_report.json?t=' + Date.now();
@@ -61,42 +237,114 @@ async function loadReportData() {
     banner.style.cssText = 'background: rgba(245, 158, 11, 0.2); border: 1px solid #fbbf24; color: #fbbf24; padding: 10px 20px; border-radius: 12px; margin-bottom: 20px; text-align: center; font-weight: 600; font-size: 0.9rem;';
     banner.innerHTML = `⚠️ 正在瀏覽歷史存檔報告：<strong>${archiveFile}</strong> · <a href="./" style="color:#38bdf8; text-decoration:underline; margin-left:10px;">返回最新即時體檢</a>`;
     const container = document.querySelector('.glass-container');
-    if (container) container.insertBefore(banner, container.firstChild.nextSibling);
+    if (container && !document.getElementById('archive-banner')) {
+      banner.id = 'archive-banner';
+      container.insertBefore(banner, container.firstChild.nextSibling);
+    }
   }
 
+  const res = await fetch(fetchUrl);
+  if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+  return await res.json();
+}
+
+async function initDashboardAuth() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlToken = urlParams.get('auth') || urlParams.get('key') || urlParams.get('token');
+
+  // If token present in URL, cache it into sessionStorage & clean URL
+  if (urlToken && urlToken.trim()) {
+    sessionStorage.setItem('ff_auth_key', urlToken.trim());
+    // Clean auth from URL query without reloading
+    urlParams.delete('auth');
+    urlParams.delete('key');
+    urlParams.delete('token');
+    const newQuery = urlParams.toString() ? '?' + urlParams.toString() : '';
+    window.history.replaceState({}, document.title, window.location.pathname + newQuery + window.location.hash);
+  }
+
+  const sessionKey = sessionStorage.getItem('ff_auth_key');
+
   try {
-    const res = await fetch(fetchUrl);
-    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-    const data = await res.json();
-    renderAll(data);
+    currentRawData = await fetchReportJson();
+
+    if (!currentRawData.encrypted) {
+      // Plaintext format
+      renderAll(currentRawData);
+      updateVaultStatusUI(true);
+      return;
+    }
+
+    // Encrypted payload requires passkey
+    if (sessionKey) {
+      try {
+        const decrypted = await decryptReportPayload(currentRawData, sessionKey);
+        hideVaultModal();
+        updateVaultStatusUI(true);
+        renderAll(decrypted);
+        return;
+      } catch (e) {
+        console.warn('Session passkey failed to decrypt, showing unlock dialog:', e);
+        sessionStorage.removeItem('ff_auth_key');
+        showVaultModal('⚠️ 上次儲存之密鑰已失效或有誤，請重新輸入！');
+      }
+    } else {
+      // No key available -> Show Vault Unlock Modal
+      showVaultModal();
+    }
   } catch (err) {
-    console.warn('Loading data failed, using real embedded fallback:', err);
-    renderAll(getRealFallbackData());
+    console.error('Failed to load report payload:', err);
+    showVaultModal('❌ 無法連線載入報告數據，請稍後重試。');
   }
 }
 
+/* ==========================================
+   5. Dashboard Component Renderers
+   ========================================== */
 function renderAll(data) {
+  if (!data) return;
+
   // 1. Meta
-  if (data.report_date) document.getElementById('meta-date').textContent = data.report_date;
-  if (data.macro_gate) document.getElementById('meta-gate').textContent = `${data.macro_gate} (防禦加碼)`;
-  if (data.market_regime) document.getElementById('meta-regime').textContent = `${data.market_regime} (高檔整理)`;
+  if (data.report_date) {
+    const el = document.getElementById('meta-date');
+    if (el) el.textContent = data.report_date;
+  }
+  if (data.macro_gate) {
+    const el = document.getElementById('meta-gate');
+    if (el) el.textContent = `${data.macro_gate} (${data.macro_gate_desc || '防禦加碼'})`;
+  }
+  if (data.market_regime) {
+    const el = document.getElementById('meta-regime');
+    if (el) el.textContent = `${data.market_regime} (${data.market_regime_desc || '高檔整理'})`;
+  }
 
   // 2. KPIs
   if (data.kpis) {
     const k = data.kpis;
-    document.getElementById('kpi-net-worth').textContent = `NT$ ${Number(k.net_worth || 8058475).toLocaleString()}`;
-    const cov = Number(k.goal_coverage_pct || 32.23).toFixed(2);
-    document.getElementById('kpi-coverage').textContent = `${cov}%`;
-    document.getElementById('kpi-progress-bar').style.width = `${Math.min(100, cov)}%`;
+    const netWorthEl = document.getElementById('kpi-net-worth');
+    if (netWorthEl) netWorthEl.textContent = `NT$ ${Number(k.net_worth || 8058475).toLocaleString()}`;
     
-    document.getElementById('kpi-port-a-pnl').textContent = `+NT$ ${Number(k.port_a_pnl || 175527).toLocaleString()}`;
-    document.getElementById('kpi-gold-pct').textContent = `${Number(k.gold_pct || 20.83).toFixed(2)}%`;
-    document.getElementById('kpi-goal-year').textContent = `${k.estimated_goal_year || 2037} 年`;
+    const cov = Number(k.goal_coverage_pct || 32.23).toFixed(2);
+    const covEl = document.getElementById('kpi-coverage');
+    if (covEl) covEl.textContent = `${cov}%`;
+
+    const progBar = document.getElementById('kpi-progress-bar');
+    if (progBar) progBar.style.width = `${Math.min(100, cov)}%`;
+    
+    const pnlEl = document.getElementById('kpi-port-a-pnl');
+    if (pnlEl) pnlEl.textContent = `+NT$ ${Number(k.port_a_pnl || 175527).toLocaleString()}`;
+
+    const goldEl = document.getElementById('kpi-gold-pct');
+    if (goldEl) goldEl.textContent = `${Number(k.gold_pct || 20.83).toFixed(2)}%`;
+
+    const goalYearEl = document.getElementById('kpi-goal-year');
+    if (goalYearEl) goalYearEl.textContent = `${k.estimated_goal_year || 2037} 年`;
   }
 
   // 3. CIO Summary
   if (data.cio_summary) {
-    document.getElementById('cio-summary-text').textContent = data.cio_summary;
+    const cioEl = document.getElementById('cio-summary-text');
+    if (cioEl) cioEl.textContent = data.cio_summary;
   }
 
   // 4. Accounts Overview Table
@@ -219,112 +467,4 @@ function renderHoldingsTable(holdings) {
     `;
     tbody.appendChild(tr);
   });
-}
-
-function getRealFallbackData() {
-  return {
-    "report_date": "2026-09-09 18:34",
-    "macro_gate": "CAUTION",
-    "market_regime": "OVERVALUED",
-    "kpis": {
-      "net_worth": 8058475,
-      "asset_goal": 25000000,
-      "gap_to_goal": 16941525,
-      "goal_coverage_pct": 32.23,
-      "estimated_goal_year": 2037,
-      "gold_pct": 20.83,
-      "port_a_pnl": 175527,
-      "port_a_pnl_pct": 13.57
-    },
-    "cio_summary": "總體經濟維持 CAUTION 謹慎防禦模式。主力帳戶 A 獲利 +13.57%（0050 獲利 +17.7%、正2 獲利 +17.4%）。實體黃金因金價大漲現值達 20.83% 超過 12% 配置上限，觸發 REBALANCE_SELL 再平衡調節訊號。",
-    "portfolios_overview": [
-      {
-        "code": "PORT-A",
-        "name": "永豐金證券主力帳戶",
-        "role": "台股核心指數與實體黃金",
-        "value": 1469468,
-        "pnl": 175527,
-        "pnl_pct": 13.57,
-        "weight_pct": 18.2,
-        "status": "強勢獲利 (+13.6%)"
-      },
-      {
-        "code": "PORT-B",
-        "name": "基富通基金專戶",
-        "role": "全球基金定期定額儲蓄",
-        "value": 114230,
-        "pnl": -159,
-        "pnl_pct": -0.14,
-        "weight_pct": 1.4,
-        "status": "持平穩定"
-      },
-      {
-        "code": "PORT-C",
-        "name": "元大證券與元大銀行定期定額專戶",
-        "role": "台美指數與美債定期定額 (006208/00646/00662/00878/00679B)",
-        "value": 162458,
-        "pnl": 13355,
-        "pnl_pct": 8.96,
-        "weight_pct": 2.0,
-        "status": "穩健成長 (+9.0%)"
-      },
-      {
-        "code": "PORT-D",
-        "name": "加密貨幣與衛星實驗",
-        "role": "高波動衛星避險",
-        "value": 17521,
-        "pnl": -13814,
-        "pnl_pct": -44.08,
-        "weight_pct": 0.2,
-        "status": "整理回檔"
-      }
-    ],
-    "holdings_a": [
-      {
-        "symbol": "0050",
-        "name": "元大台灣50",
-        "shares": 8000,
-        "unit": "股",
-        "price": 109.65,
-        "cost_basis": 93.15,
-        "market_value": 877200,
-        "pnl": 132000,
-        "pnl_pct": 17.71,
-        "status": "核心持股續抱"
-      },
-      {
-        "symbol": "00403A",
-        "name": "富邦台50正2",
-        "shares": 28000,
-        "unit": "股",
-        "price": 10.47,
-        "cost_basis": 8.92,
-        "market_value": 293160,
-        "pnl": 43400,
-        "pnl_pct": 17.38,
-        "status": "槓桿波段獲利中"
-      },
-      {
-        "symbol": "AU9901",
-        "name": "台銀實體黃金條塊",
-        "shares": 18,
-        "unit": "台錢",
-        "price": 16610,
-        "cost_basis": 16610.06,
-        "market_value": 298980,
-        "pnl": -1,
-        "pnl_pct": 0.0,
-        "status": "實體金避險 (超標需再平衡)"
-      }
-    ],
-    "buy_targets": [
-      { "symbol": "0056", "name": "元大高股息", "current_price": 55.75, "target_price": 52.0, "gap_pct": 7.21, "yield_pct": 6.85, "zone": "觀察名單" },
-      { "symbol": "00878", "name": "國泰永續高股息", "current_price": 34.08, "target_price": 32.5, "gap_pct": 4.86, "yield_pct": 6.42, "zone": "觀察名單" },
-      { "symbol": "00918", "name": "大華優利高填息30", "current_price": 35.44, "target_price": 33.8, "gap_pct": 4.85, "yield_pct": 7.15, "zone": "觀察名單" },
-      { "symbol": "00919", "name": "群益台灣精選高息", "current_price": 32.70, "target_price": 31.0, "gap_pct": 5.48, "yield_pct": 8.81, "zone": "觀察名單" },
-      { "symbol": "0050", "name": "元大台灣50", "current_price": 109.65, "target_price": 95.0, "gap_pct": 15.42, "yield_pct": 3.20, "zone": "續抱中 (+17.7%)" },
-      { "symbol": "AU9901", "name": "台銀實體黃金條塊", "current_price": 16610.0, "target_price": 15000.0, "gap_pct": 10.73, "yield_pct": 0.0, "zone": "獲利再平衡" }
-    ],
-    "alert_scenarios": []
-  };
 }

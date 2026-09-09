@@ -818,3 +818,204 @@ body {
     font-size: 1.4rem;
   }
 }
+
+
+/* ==========================================================================
+   AES-256-GCM Personal Security Vault Modal & Status Badge (Okinawa 2026 Theme)
+   ========================================================================== */
+.vault-dialog {
+  max-width: 460px;
+  width: 90%;
+  text-align: center;
+  padding: 32px 28px;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 35px rgba(2, 132, 199, 0.25);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 24px;
+  animation: vaultPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes vaultPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.vault-icon-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.vault-glow-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.3), rgba(37, 99, 235, 0.2));
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 0 25px rgba(2, 132, 199, 0.4);
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(2, 132, 199, 0.3); transform: scale(1); }
+  50% { box-shadow: 0 0 32px rgba(56, 189, 248, 0.6); transform: scale(1.05); }
+}
+
+.vault-modal-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 10px 0 8px 0;
+  letter-spacing: -0.01em;
+}
+
+.vault-modal-desc {
+  font-size: 0.88rem;
+  color: #94a3b8;
+  line-height: 1.55;
+  margin-bottom: 22px;
+}
+
+.vault-input-group {
+  display: flex;
+  align-items: center;
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 14px;
+  padding: 4px 14px;
+  margin-bottom: 14px;
+  transition: all 0.25s ease;
+}
+
+.vault-input-group:focus-within {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+  background: rgba(30, 41, 59, 0.95);
+}
+
+.input-icon {
+  font-size: 1.1rem;
+  margin-right: 10px;
+  opacity: 0.8;
+}
+
+.vault-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #f8fafc;
+  font-size: 0.95rem;
+  padding: 10px 0;
+  outline: none;
+}
+
+.vault-input::placeholder {
+  color: #64748b;
+  font-size: 0.88rem;
+}
+
+.btn-toggle-eye {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 1.05rem;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.btn-toggle-eye:hover {
+  color: #38bdf8;
+}
+
+.vault-error {
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+  font-size: 0.84rem;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  text-align: left;
+  animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.btn-vault-unlock {
+  width: 100%;
+  background: linear-gradient(135deg, #0284c7, #2563eb);
+  color: #ffffff;
+  border: none;
+  padding: 13px 20px;
+  border-radius: 12px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 18px rgba(2, 132, 199, 0.35);
+  transition: all 0.25s ease;
+}
+
+.btn-vault-unlock:hover {
+  background: linear-gradient(135deg, #0369a1, #1d4ed8);
+  box-shadow: 0 6px 24px rgba(2, 132, 199, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-vault-unlock:active {
+  transform: translateY(0);
+}
+
+.vault-hint-box {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 12px 14px;
+  text-align: left;
+}
+
+.vault-hint-box .hint-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #38bdf8;
+  margin-bottom: 6px;
+}
+
+.vault-hint-box .hint-body {
+  font-size: 0.76rem;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+.vault-badge-locked {
+  background: rgba(239, 68, 68, 0.2) !important;
+  color: #fca5a5 !important;
+  border-color: rgba(239, 68, 68, 0.4) !important;
+}
+
+.vault-badge-unlocked {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #6ee7b7 !important;
+  border-color: rgba(16, 185, 129, 0.4) !important;
+}

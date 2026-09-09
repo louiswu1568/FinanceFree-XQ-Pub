@@ -35,6 +35,10 @@
           <p class="brand-subtitle">全資產投資體檢 · 4 大專戶配置 · 智能推播中心 (Alert Hub) 雲端發布</p>
         </div>
         <div class="meta-block">
+          <div class="meta-pill" id="vault-pill" style="cursor:pointer;" title="點擊可重新鎖定金庫" onclick="promptRelock()">
+            <span class="meta-label">安全金庫</span>
+            <span class="badge vault-badge-unlocked" id="vault-status-badge">🔐 金庫已解鎖</span>
+          </div>
           <div class="meta-pill">
             <span class="meta-label">數據更新時間</span>
             <span class="meta-value" id="meta-date">2026-09-09 18:34</span>
@@ -339,5 +343,45 @@
   </div>
 
   <script src="app.js"></script>
+
+  <!-- Security Vault Unlock Modal (方案 1 + 方案 2 Fallback) -->
+  <div id="vault-modal" class="modal-backdrop" style="display:none;">
+    <div class="vault-dialog">
+      <div class="vault-icon-wrap">
+        <div class="vault-glow-circle">🔐</div>
+      </div>
+      <div class="brand-badge" style="margin-bottom:8px;">FINANCEFREE-XQ AES-256 VAULT</div>
+      <h2 class="vault-modal-title">個人資產金庫 · 安全解鎖</h2>
+      <p class="vault-modal-desc">
+        本體檢報告全量數據採用金融級 <strong>AES-256-GCM 密文加密</strong>。<br>
+        公開雲端伺服器未儲存任何明文資產金額，請輸入金庫密鑰解密。
+      </p>
+
+      <div class="vault-input-group">
+        <span class="input-icon">🔑</span>
+        <input type="password" id="vault-passkey-input" class="vault-input" placeholder="請輸入金庫解鎖密鑰 (Passkey)..." autocomplete="current-password" />
+        <button type="button" id="vault-toggle-visibility" class="btn-toggle-eye" title="顯示/隱藏密碼">👁️</button>
+      </div>
+
+      <div id="vault-error-msg" class="vault-error" style="display:none;">
+        ⚠️ 通行密鑰錯誤，無法解密資產金庫，請重新輸入！
+      </div>
+
+      <div class="vault-btn-group">
+        <button type="button" id="btn-vault-unlock" class="btn-vault-unlock">
+          <span>🔓 立即解密並進入報告</span>
+        </button>
+      </div>
+
+      <div class="vault-hint-box">
+        <div class="hint-title">💡 1-Click 快捷授權說明</div>
+        <div class="hint-body">
+          • 透過 <strong>LINE 官方推播連結</strong> 點擊進入時，系統將自動附帶專屬 Token 進行瞬間解密，無需手動輸入。<br>
+          • 授權狀態會在當前工作階段（Session）妥善保存。
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
