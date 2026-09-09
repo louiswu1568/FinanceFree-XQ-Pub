@@ -260,8 +260,8 @@ function getRealFallbackData() {
       },
       {
         "code": "PORT-C",
-        "name": "第一銀行海外複委託",
-        "role": "美股大盤指數成長",
+        "name": "國泰證券定期定額專戶",
+        "role": "台美指數與美債定期定額 (006208/00646/00662/00878/00679B)",
         "value": 162458,
         "pnl": 13355,
         "pnl_pct": 8.96,
