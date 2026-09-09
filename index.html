@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FinanceFree-XQ · Format 1 全資產投資體檢與智能推播報告</title>
-  <meta name="description" content="FinanceFree-XQ 全自動化多重資產配置、買入目標價追蹤與 10 大推播預警報告">
+  <title>FinanceFree-XQ · Format 1 全資產投資體檢與智能推播報告 (商業版)</title>
+  <meta name="description" content="FinanceFree-XQ 全自動化多重資產配置、買入目標價追蹤與 10 大推播預警報告。版權所有，引用轉載需事先告知。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
           <span>🏛️</span>
           <span>FinanceFree-XQ · 投資體檢報告</span>
           <span class="pill pill-blue" style="font-size: 0.68rem">Format 1</span>
-          <span class="pill pill-green" style="font-size: 0.68rem">v3.1 Live</span>
+          <span class="pill pill-purple" style="font-size: 0.68rem">© 智慧財產權保護</span>
         </div>
         <div class="brand-subtitle" id="reportSubtitle">
           全自動化多重資產配置 · 10 大推播預警中心 · 財務自由退休路徑
@@ -29,8 +29,20 @@
       <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
         <span class="pill pill-purple" id="headerDatePill">📅 報告時間：載入中...</span>
         <span class="pill pill-green" id="headerMacroPill">🛡️ 風控狀態：SAFE_MODE</span>
+        <button class="nav-tab" style="padding: 4px 10px; font-size: 0.72rem; border-color: rgba(245, 158, 11, 0.4); color: var(--yellow);" onclick="openLegalModal()">
+          ⚖️ 法律與智財聲明
+        </button>
       </div>
     </header>
+
+    <!-- Legal Notice Strip -->
+    <div class="legal-strip">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 1rem;">⚖️</span>
+        <span><strong>智慧財產權與合規提示：</strong>本系統演算法模型、Format 1 前端 HTML/CSS 渲染結構及量化數據均受專屬智財權保護。轉載、引用或商業利用<strong>均需事先書面授權告知</strong>。本報告非投資買賣建議，投資人應自負盈虧。</span>
+      </div>
+      <a href="#legal-section" style="color: var(--yellow); text-decoration: none; font-weight: 700; white-space: nowrap; margin-left: 10px;">詳閱條款 ↗</a>
+    </div>
 
     <!-- Navigation Tabs -->
     <nav class="nav-tabs" id="navTabs">
@@ -39,6 +51,7 @@
       <button class="nav-tab" onclick="switchTab('tab-targets')">🍯 買入目標價 (≤3%)</button>
       <button class="nav-tab" onclick="switchTab('tab-alerts')">🔔 10 大推播預警矩陣</button>
       <button class="nav-tab" onclick="switchTab('tab-retirement')">🎯 4% 提領退休規劃</button>
+      <button class="nav-tab" onclick="switchTab('tab-legal')" style="border-color: rgba(245,158,11,.3); color: var(--yellow)">⚖️ 智慧財產權與免責條款</button>
     </nav>
 
     <!-- Tab 1: 投資總覽與今日決策 -->
@@ -239,11 +252,62 @@
       </div>
     </section>
 
+    <!-- Tab 6: 智慧財產權與法律聲明 (詳細條款) -->
+    <section id="tab-legal" class="tab-content" style="display: none;">
+      <div class="section-card" style="border: 1px solid rgba(245, 158, 11, 0.35); background: rgba(17, 24, 39, 0.9);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--card-border);">
+          <span style="font-size: 1.5rem;">⚖️</span>
+          <div>
+            <h3 style="margin: 0; font-size: 1.15rem; color: var(--yellow);">商業智慧財產權聲明、引用規範與法律免責條款</h3>
+            <div style="font-size: 0.76rem; color: var(--text-muted);">Commercial Intellectual Property, Mandatory Citation Policy & Legal Disclaimer</div>
+          </div>
+        </div>
+
+        <div class="legal-body" style="font-size: 0.8rem; line-height: 1.7; color: #cbd5e1; display: flex; flex-direction: column; gap: 14px;">
+          
+          <div style="background: rgba(255,255,255,.02); padding: 14px; border-radius: 8px; border-left: 3px solid var(--accent);">
+            <h4 style="color: var(--accent-light); margin-bottom: 6px; font-size: 0.88rem;">一、 智慧財產權與著作權所有權利保留 (Proprietary IP & Copyright All Rights Reserved)</h4>
+            <p>
+              本系統（包含但不限於 <strong>FinanceFree-XQ</strong> 投資決策架構、量化演算法、Format 1 前端 HTML/CSS/JS 介面渲染程式碼、資料視覺化圖表設計、金字塔動態加碼邏輯、殖利率甜蜜點模型、多重風控閘門演算法及所有產出之分析報告內容），其全部智慧財產權、專利權申請權、商標權、營業秘密與著作權，均屬原創作者所有，受《中華民國著作權法》、《商標法》、《營業秘密法》以及國際智慧財產權條約之嚴密保護。非經合法書面授權，任何人不得主張任何形式之共有或默示授權。
+            </p>
+          </div>
+
+          <div style="background: rgba(255,255,255,.02); padding: 14px; border-radius: 8px; border-left: 3px solid var(--yellow);">
+            <h4 style="color: var(--yellow); margin-bottom: 6px; font-size: 0.88rem;">二、 商業使用限制與強制引用告知規範 (Commercial Use Restriction & Mandatory Citation Policy)</h4>
+            <p>
+              1. <strong>禁止未經授權之商業利用</strong>：任何自然人、法人或其他組織，未經著作權人事前正式書面授權同意，嚴禁以任何方式（包括但不限於重製、改作、公開播送、公開傳輸、散布、發行、銷售、再授權、反向工程、抓取 (Scraping) 或作為人工智慧 AI / LLM 訓練模型資料集）將本專案原始碼、渲染成果或分析報告之全部或一部用於任何商業營利目的。<br>
+              2. <strong>學術與個人非營利引用規範</strong>：若基於個人研究或學術交流目的引用本系統內容，<strong>必須事先主動告知著作權人</strong>，並於引用之顯著位置明確標註完整出處：<code>「引用自 FinanceFree-XQ 投資決策系統 (Author: Louis Wu / GitHub: louiswu1568/FinanceFree-XQ-Pub)」</code>，不得為任何曲解、斷章取義或損害原創聲譽之利用。
+            </p>
+          </div>
+
+          <div style="background: rgba(255,255,255,.02); padding: 14px; border-radius: 8px; border-left: 3px solid var(--red);">
+            <h4 style="color: var(--red); margin-bottom: 6px; font-size: 0.88rem;">三、 專業金融投資風險揭露與免責聲明 (Financial Investment Disclaimer & Risk Disclosure)</h4>
+            <p>
+              1. <strong>非投資建議聲明</strong>：本平台及所有報告所揭露之數據、指標分析、買入目標價、進場時機提醒、風控狀態與經理人決策摘要，均係基於歷史數據、量化模型與公開資訊之自動化運算結果，<strong>僅供個人資產管理技術研究與決策輔助演示之用，絕不構成任何形式之證券、期貨、基金、衍生性金融商品之投資顧問、買賣推薦、獲利保證、要約或招攬</strong>。<br>
+              2. <strong>市場風險自負</strong>：金融市場瞬息萬變，歷史績效絕不代表未來之獲利保證。任何投資決策均具有本金損失之固有風險（包括但不限於市場系統性風險、流動性風險、信用風險、匯率波動及槓桿穿倉風險）。使用者依據本報告任何內容所為之任何投資操作，均應審慎獨立判斷並自行負擔全部之盈虧與責任。<br>
+              3. <strong>無瑕疵擔保責任</strong>：本系統力求數據之正確性，但對於第三方資料源（如證券交易所、FinMind、基富通等）之延遲、中斷、遺漏或錯誤，以及因網路傳輸異常或系統維護所生之任何直接、間接、附帶或衍生性損害，作者及開發團隊概不承擔任何法律與賠償責任。
+            </p>
+          </div>
+
+          <div style="background: rgba(255,255,255,.02); padding: 14px; border-radius: 8px; border-left: 3px solid var(--blue);">
+            <h4 style="color: var(--blue); margin-bottom: 6px; font-size: 0.88rem;">四、 侵權追訴與準據法管轄 (Legal Recourse, Trade Secrets & Governing Law)</h4>
+            <p>
+              凡未經許可擅自抄襲、未告知引用、商業剽竊本系統專利架構、HTML/CSS 渲染版型或專有量化模型者，著作權人將全權委任專業律師依法保全證據，並提出包括《著作權法》第 84 條至第 90 條之排除侵害、銷毀重製物、民事損害賠償訴訟（最高按法定最高額追賠）及《營業秘密法》之刑事追訴。本聲明之解釋與適用均以<strong>中華民國法律</strong>為準據法，如有爭議，雙方合意以<strong>臺灣臺北地方法院</strong>為第一審專屬管轄法院。
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <!-- Footer -->
-    <footer>
-      <div>FinanceFree-XQ · 全自動化高股息與指數化投資決策系統 v3.1</div>
-      <div style="margin-top: 4px; font-size: 0.68rem; color: var(--text-dim)">
-        託管於 Vercel 全球 Edge CDN · 本報告資料由本地核心引擎自動安全同步導出
+    <footer id="legal-section">
+      <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 8px; flex-wrap: wrap;">
+        <span style="color: var(--text);">© 2026 FinanceFree-XQ. All Rights Reserved. 版權所有 · 翻印侵權必究</span>
+        <a href="javascript:void(0)" onclick="switchTab('tab-legal')" style="color: var(--yellow); text-decoration: none;">⚖️ 智慧財產權與法律免責條款</a>
+      </div>
+      <div style="font-size: 0.68rem; color: var(--text-dim); max-width: 800px; margin: 0 auto; line-height: 1.4;">
+        【法定免責提示】本站所有量化數據、HTML 渲染報表與經理人決策摘要僅供資產配置技術演示之用，不構成任何證券投資買賣建議。引用或商業轉載需事先取得書面授權告知。
       </div>
     </footer>
 
