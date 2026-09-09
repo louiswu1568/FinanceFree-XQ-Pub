@@ -255,7 +255,80 @@
     "pct": 12.0,
     "action": "維持現狀"
   },
-  "buy_targets": [],
+  "buy_targets": [
+    {
+      "symbol": "00878",
+      "name": "國泰永續高股息",
+      "current_price": 34.13,
+      "target_price": 0.0,
+      "gap_pct": 0.0,
+      "yield_pct": null,
+      "zone": "WARM"
+    },
+    {
+      "symbol": "00919",
+      "name": "群益台灣精選高息",
+      "current_price": 32.58,
+      "target_price": 0.0,
+      "gap_pct": 0.0,
+      "yield_pct": null,
+      "zone": "WARM"
+    },
+    {
+      "symbol": "0056",
+      "name": "元大高股息",
+      "current_price": 55.75,
+      "target_price": 0.0,
+      "gap_pct": 0.0,
+      "yield_pct": null,
+      "zone": "WARM"
+    },
+    {
+      "symbol": "00918",
+      "name": "大華優利高填息30",
+      "current_price": 35.46,
+      "target_price": 0.0,
+      "gap_pct": 0.0,
+      "yield_pct": null,
+      "zone": "WARM"
+    },
+    {
+      "symbol": "0050",
+      "name": "元大台灣50",
+      "current_price": 109.65,
+      "target_price": 0.0,
+      "gap_pct": 0.0,
+      "yield_pct": null,
+      "zone": "WARM"
+    },
+    {
+      "symbol": "00915",
+      "name": "凱基優選高股息30",
+      "current_price": 32.91,
+      "target_price": 0.0,
+      "gap_pct": 0.0,
+      "yield_pct": null,
+      "zone": "WARM"
+    },
+    {
+      "symbol": "00403A",
+      "name": "統一台股升級50",
+      "current_price": 10.35,
+      "target_price": 0.0,
+      "gap_pct": 0.0,
+      "yield_pct": null,
+      "zone": "WARM"
+    },
+    {
+      "symbol": "00631L",
+      "name": "元大台灣50正2",
+      "current_price": 37.54,
+      "target_price": 0.0,
+      "gap_pct": 0.0,
+      "yield_pct": null,
+      "zone": "WARM"
+    }
+  ],
   "retirement": {
     "target_capital": 15000000,
     "current_savings": 12850000.0,
