@@ -1,51 +1,55 @@
-# FinanceFree-XQ-Pub · 全資產投資體檢與智能推播報告 (Format 1)
+# FinanceFree-XQ-Pub · 全資產投資體檢與智能推播報告v1.0
 
-[![Version](https://img.shields.io/badge/Release-v3.1-blue)](https://github.com/louiswu1568/FinanceFree-XQ)
-[![Intellectual Property](https://img.shields.io/badge/IP%20Protection-All%20Rights%20Reserved-red)](https://github.com/louiswu1568/FinanceFree-XQ-Pub#%EF%B8%8F-%E5%95%86%E6%A5%AD%E6%99%BA%E6%85%A7%E8%B2%A1%E7%94%A2%E6%AC%8A%E8%81%B2%E6%98%8E%E5%BC%95%E7%94%A8%E8%A6%8F%E7%AF%84%E8%88%87%E6%B3%95%E5%BE%8B%E5%85%8D%E8%B2%AC%E6%A2%9D%E6%AC%BE)
-[![Deployment](https://img.shields.io/badge/Vercel-Hosted-black?logo=vercel)](https://financefree-xq-pub.vercel.app/)
+> **專業量化全資產投資決策系統 · Format 1 HTML 渲染標準 · 智能推播中心 (Alert Hub 10 大場景) 雲端公開報告**
 
-本倉庫為 **[FinanceFree-XQ](https://github.com/louiswu1568/FinanceFree-XQ)** 投資決策系統之公開靜態報告發布端（Public Report Mirror），專為 **Vercel** 全球 Edge CDN 靜態網站託管打造。
-
----
-
-## ⚖️ 商業智慧財產權聲明、引用規範與法律免責條款
-*(Commercial Intellectual Property, Mandatory Citation Policy & Legal Disclaimer)*
-
-> **特別聲明**：本專案所包含之演算法架構、資料視覺化模型、前端 HTML/CSS/JS 介面渲染結構、量化分析指標及報告內容，均屬原創作者所有，受相關智慧財產權法規之嚴密保護。
-
-### 一、 智慧財產權與著作權所有權利保留 (Proprietary IP & Copyright All Rights Reserved)
-1. **專有權利範圍**：本系統（包含但不限於 **FinanceFree-XQ** 之量化投資決策模型、Format 1 前端 HTML/CSS/JS 渲染架構、金字塔分批加碼演算法、高股息殖利率甜蜜點模型、多重風控閘門邏輯及所有產出之分析報告內容），其全部智慧財產權、著作權、商標權及營業秘密均專屬於原作者所有。
-2. **禁止擅自重製與抄襲**：非經原創作者事前正式書面授權，任何人不得以任何形式（包括但不限於重製、改作、公開播送、公開傳輸、散布、發行、銷售、再授權、反向工程、抓取 (Scraping) 或作為人工智慧 AI / LLM 訓練模型資料集）進行全部或部分之複製或商業營利利用。
-
-### 二、 商業使用限制與強制引用告知規範 (Commercial Restriction & Mandatory Citation)
-1. **商業營利利用**：嚴禁任何未經事前正式書面簽約授權之商業營利利用。
-2. **學術與非營利引用規範**：若因學術研究、個人技術交流需引用本專案之架構、圖表或報告，**必須事前主動告知原作者**，並於引用處之顯著位置明確標註完整出處：
-   ```text
-   引用來源：FinanceFree-XQ 全自動化投資決策系統 (Author: Louis Wu / GitHub: https://github.com/louiswu1568/FinanceFree-XQ-Pub)
-   ```
-   任何未經告知之引用、斷章取義或未具名轉載，均構成對著作權之直接侵害。
-
-### 三、 專業金融投資風險揭露與免責條款 (Financial Disclaimer & Risk Disclosure)
-1. **非證券投資顧問建議**：本平台及產出報告所揭露之所有量化數據、指標推估、買入目標價、進場時機提醒、風控狀態與經理人決策摘要，均係基於歷史數據、量化模型與公開資訊之自動化運算結果，**僅供個人資產配置技術研究與決策流程演示之用，絕不構成任何形式之證券、期貨、基金或衍生性金融商品之投資顧問、買賣推薦、獲利保證、要約或招攬**。
-2. **投資風險與盈虧自負**：金融市場具有高度波動性與不確定性，歷史績效絕不保證未來表現。任何投資行為均具有本金虧損之風險（包括市場波動、流動性風險、信用風險及匯率風險等）。投資人應獨立審慎評估自身財務狀況與風險承受能力，並**自行承擔所有投資交易之盈虧結果與法律責任**。
-3. **無瑕疵擔保責任**：本系統力求數據之正確性，但對於第三方資料源之延遲、中斷、遺漏或錯誤，以及因網路傳輸或系統維護所生之任何直接、間接、附帶或衍生性損害，作者及開發團隊概不承擔任何賠償責任。
-
-### 四、 侵權究責與準據法管轄 (Legal Recourse & Governing Law)
-凡未經許可擅自抄襲、未告知引用、商業剽竊本系統專利架構、HTML/CSS 渲染版型或專有量化模型者，著作權人將依法委任律師保全證據，並提出包括《著作權法》之排除侵害、銷毀重製物、民事損害賠償訴訟（最高按法定最高額追賠）及相關法令之法律追訴。本條款之解釋與適用均以**中華民國法律**為準據法，如有爭議，合意以**臺灣臺北地方法院**為第一審專屬管轄法院。
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-success?style=flat-square&logo=vercel)](https://financefree-xq-pub.vercel.app/)
+[![GitHub Release](https://img.shields.io/badge/Release-v1.0-blue?style=flat-square)](https://github.com/louiswu1568/FinanceFree-XQ-Pub)
+[![License: All Rights Reserved](https://img.shields.io/badge/License-All_Rights_Reserved-red?style=flat-square)](#-智慧財產權聲明與商業授權規範)
 
 ---
 
-## 🌟 系統功能與架構亮點
+## 📌 系統簡介
 
-1. **Format 1 全面投資體檢報告**：
-   - **今日決策與委託單**：展示經理人模型分析與待確認買賣單（`STRONG_BUY` / `STRATEGIC_EXIT`）。
-   - **四大子投組配置**：A/B/C/D 四大模組損益與資產分佈。
-   - **買入目標價追蹤 (≤3%)**：核心標的殖利率甜蜜點與金字塔加碼雷達。
-   - **10 大智能推播預警矩陣**：涵蓋交易訊息、市場訊息與系統里程碑三大維度。
-   - **4% SWR 退休進度**：安全提領率與財務自由達成進度條。
-2. **LINE / Email 智能推播直達**：
-   - 收到推播通知時，手機點擊專屬連結即可秒開最新 Format 1 HTML 報告。
+**FinanceFree-XQ-Pub** 為 [FinanceFree-XQ 投資決策系統](https://github.com/louiswu1568/FinanceFree-XQ) 之公開靜態網頁前端，部署於 **Vercel.app** 雲端平台。每日透過自動化排程引擎，產出符合 **Format 1 標準格式** 之全資產投資體檢報告與 **10 大智能推播場景總覽表**，並在 LINE Official Bot / Email 推送通知中附帶此公開報告連結供點閱。
 
 ---
 
-© 2026 FinanceFree-XQ. All Rights Reserved. 版權所有 · 翻印侵權必究。
+## 🔔 智能推播中心 (Alert Hub) · 10 大推播場景總覽
+
+| 場景編號 | 場景名稱 | 觸發時機 | 觸發條件與指標 | 推播管道 | 優先級 |
+|:---|:---|:---|:---|:---|:---:|
+| **SCENARIO-01** | 盤前/盤中買賣決策與下單指令 | 每日 08:30 / 13:30 | 多因子評分達標 (Score >= 80) 或 60分K支撐加碼 | LINE Bot / Email | `HIGH` |
+| **SCENARIO-02** | 高股息殖利率甜甜價與買點逼近 | 每日盤後 15:00 | 核心標的距買點價差 <= 2.5% 或 殖利率 >= 6.5% | LINE Bot / Email | `MEDIUM` |
+| **SCENARIO-03** | 除權息旺季與季節性日曆提醒 | 除息日前 3 日 / 前 1 日 | 持股除息日倒數 <= 3 天，提示最後買進日與填息機率 | LINE Bot / Email | `MEDIUM` |
+| **SCENARIO-04** | 股息入帳與自動再投資滾雪球 | 每月 10/25 股息發放日 | 股息入帳金額 >= 10,000 元，自動試算複利加碼標的 | LINE Bot / Email | `MEDIUM` |
+| **SCENARIO-05** | 全市場融資維持率與情緒過熱/恐慌 | 每日盤後 17:30 | 大盤融資維持率 < 140% (斷頭買點) 或 > 175% (過熱) | LINE Bot / Email | `HIGH` |
+| **SCENARIO-06** | 槓桿倍數壓力測試與質押維持率監控 | 每日收盤 / 大盤急跌 > 2% | 質押維持率 < 180% (預警) 或 負債比 > 35% | LINE (緊急) / Email | `URGENT` |
+| **SCENARIO-07** | 股債金資產配置偏離與動態再平衡 | 每週日 20:00 / 偏離即時 | 核心配置 (股/債/金/現金) 偏離目標權重超過 ±5% | LINE Bot / Email | `MEDIUM` |
+| **SCENARIO-08** | 總淨值創歷史新高 (ATH) 與 Alpha 超額報酬 | 每日盤後 16:30 | 總淨值突破歷史高點 或 YTD 超越 0050 基準 >= 3.0% | LINE Bot / Email | `INFO` |
+| **SCENARIO-09** | 退休金達標里程碑與 4% 提領率進度 | 每月 1 日 09:00 | 退休金達標進度每提升 5% 觸發特別進度與 4% SWR 試算 | LINE Bot / Email | `INFO` |
+| **SCENARIO-10** | 每日盤後定時自動分析報告產出 | 每日 16:30 (定時排程) | 定時分析排程完成全資產體檢、XQ 數據爬取與雲端發布 | LINE Bot / Email / Vercel | `INFO` |
+
+---
+
+## ⚖️ 智慧財產權聲明、商業授權規範與法律責任免責宣告
+
+### 1. 智慧財產權與著作權歸屬聲明 (Intellectual Property & Copyright Notice)
+本系統 **FinanceFree-XQ** 及前端 **FinanceFree-XQ-Pub** 所包含之全部演算法架構、多因子評分機制、量化模型、Format 1 前端渲染設計（HTML/CSS/JS）、視覺化圖表排版及數據分析成果，其著作權、商標權、營業秘密等全部智慧財產權，**均屬原作者 Louis Wu 依法獨立專屬享有**。版權所有，未經書面授權，翻印/抄襲/逆向工程必究。
+
+### 2. 商業使用限制與強制引用告知規範 (Commercial Use Restriction & Attribution Policy)
+* **嚴禁商業營利利用：** 嚴格禁止任何第三方未經事前正式書面授權，將本系統、HTML 渲染架構或數據分析成果用於商業營利、收費投顧服務、付費社群或轉售。
+* **嚴禁 AI / LLM 爬蟲抓取：** 嚴禁使用爬蟲或自動化工具抓取本系統網頁與數據作為 AI/LLM 模型訓練資料集。
+* **非營利引用規範：** 基於學術研究或非營利性引用時，**必須事前書面告知原作者**並於引用處顯著標註：
+  ```
+  引用自 FinanceFree-XQ 投資決策系統 (Author: Louis Wu / GitHub: louiswu1568/FinanceFree-XQ-Pub)
+  ```
+
+### 3. 專業金融投資與法律免責聲明 (Financial Non-Advisory & Risk Disclaimer)
+本報告及網頁所有推播、數據與指標，純屬基於歷史數據與量化模型之**個人量化研究與演算法技術展示，絕不構成任何證券、期貨、基金、衍生性金融商品之買賣推薦、投資諮詢或獲利保證**。金融市場具高度波動風險，使用者應獨立審慎評估並自負盈虧。原作者對因參考或使用本系統所生之任何直接或間接損失概不承擔任何法律與賠償責任。
+
+### 4. 侵權追訴與準據法管轄 (Trade Secrets, Infringement & Jurisdiction)
+凡有侵權、違反營業秘密法、盜用 HTML 渲染架構或違法商業獲利者，原作者將依《中華民國著作權法》（第 84 條至第 90 條）、《營業秘密法》及相關民刑法規追究全數損害賠償與刑事責任。本條款以**中華民國法令**為準據法，並以**臺灣臺北地方法院**為第一審專屬管轄法院。
+
+---
+
+© 2026 **FinanceFree-XQ** · All Rights Reserved (Louis Wu).

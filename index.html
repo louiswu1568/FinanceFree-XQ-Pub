@@ -1,316 +1,271 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FinanceFree-XQ · Format 1 全資產投資體檢與智能推播報告 (商業版)</title>
-  <meta name="description" content="FinanceFree-XQ 全自動化多重資產配置、買入目標價追蹤與 10 大推播預警報告。版權所有，引用轉載需事先告知。">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinanceFree-XQ-Pub · 全資產投資體檢與智能推播報告v1.0</title>
+  <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    
-    <!-- Top Header Banner -->
-    <header class="header-card">
-      <div>
-        <div class="brand-title">
-          <span>🏛️</span>
-          <span>FinanceFree-XQ · 投資體檢報告</span>
-          <span class="pill pill-blue" style="font-size: 0.68rem">Format 1</span>
-          <span class="pill pill-purple" style="font-size: 0.68rem">© 智慧財產權保護</span>
-        </div>
-        <div class="brand-subtitle" id="reportSubtitle">
-          全自動化多重資產配置 · 10 大推播預警中心 · 財務自由退休路徑
-        </div>
+  <!-- Legal Banner Top Strip -->
+  <div class="legal-strip">
+    <span>⚖️ <strong>智慧財產權聲明與商業授權規範：</strong> 本報告系統所有演算法、多因子評分模型、Format 1 前端渲染設計均受智慧財產權與著作權法保護。未經原作者 Louis Wu 書面授權，嚴禁用於商業營利、AI 模型訓練或未授權公開轉載。引用須明確標註來源並事前告知。</span>
+  </div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-badge">PRO v1.0</div>
+        <h1>FinanceFree-XQ-Pub · 全資產投資體檢與智能推播報告v1.0</h1>
       </div>
-      <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-        <span class="pill pill-purple" id="headerDatePill">📅 報告時間：載入中...</span>
-        <span class="pill pill-green" id="headerMacroPill">🛡️ 風控狀態：SAFE_MODE</span>
-        <button class="nav-tab" style="padding: 4px 10px; font-size: 0.72rem; border-color: rgba(245, 158, 11, 0.4); color: var(--yellow);" onclick="openLegalModal()">
-          ⚖️ 法律與智財聲明
-        </button>
+      <div class="header-meta">
+        <div class="meta-item">
+          <span class="meta-label">報告產出時間</span>
+          <span class="meta-val" id="report-date">載入中...</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">總體防禦閘門</span>
+          <span class="badge badge-safe" id="macro-gate">SAFE_MODE</span>
+        </div>
       </div>
     </header>
 
-    <!-- Legal Notice Strip -->
-    <div class="legal-strip">
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <span style="font-size: 1rem;">⚖️</span>
-        <span><strong>智慧財產權與合規提示：</strong>本系統演算法模型、Format 1 前端 HTML/CSS 渲染結構及量化數據均受專屬智財權保護。轉載、引用或商業利用<strong>均需事先書面授權告知</strong>。本報告非投資買賣建議，投資人應自負盈虧。</span>
-      </div>
-      <a href="#legal-section" style="color: var(--yellow); text-decoration: none; font-weight: 700; white-space: nowrap; margin-left: 10px;">詳閱條款 ↗</a>
-    </div>
-
     <!-- Navigation Tabs -->
-    <nav class="nav-tabs" id="navTabs">
-      <button class="nav-tab active" onclick="switchTab('tab-summary')">📊 投資總覽與決策</button>
-      <button class="nav-tab" onclick="switchTab('tab-portfolio')">💼 四大投組合計</button>
-      <button class="nav-tab" onclick="switchTab('tab-targets')">🍯 買入目標價 (≤3%)</button>
-      <button class="nav-tab" onclick="switchTab('tab-alerts')">🔔 10 大推播預警矩陣</button>
-      <button class="nav-tab" onclick="switchTab('tab-retirement')">🎯 4% 提領退休規劃</button>
-      <button class="nav-tab" onclick="switchTab('tab-legal')" style="border-color: rgba(245,158,11,.3); color: var(--yellow)">⚖️ 智慧財產權與免責條款</button>
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="tab-overview">📊 全資產總覽 (Overview)</button>
+      <button class="tab-btn" data-tab="tab-alerts">🔔 智能推播中心 (10 大場景)</button>
+      <button class="tab-btn" data-tab="tab-orders">⚡ 即時下單與買點</button>
+      <button class="tab-btn" data-tab="tab-segments">🛡️ 四大防禦資產</button>
+      <button class="tab-btn" data-tab="tab-legal">⚖️ 智慧財產權與免責條款</button>
     </nav>
 
-    <!-- Tab 1: 投資總覽與今日決策 -->
-    <section id="tab-summary" class="tab-content">
-      <!-- 4 Core KPIs -->
-      <div class="grid-4" id="kpiContainer">
+    <!-- Tab 1: Overview -->
+    <main id="tab-overview" class="tab-content active">
+      <!-- KPI Cards -->
+      <section class="kpi-grid">
         <div class="kpi-card">
-          <div class="kpi-label">
-            <span>個人總淨值 (Net Worth)</span>
-            <span>💎</span>
-          </div>
-          <div class="kpi-value green" id="kpiNetWorth">NT$ --</div>
-          <div class="kpi-sub" id="kpiNetWorthSub">總資產扣除負債結餘</div>
+          <div class="kpi-title">總資產淨值 (Net Worth)</div>
+          <div class="kpi-value" id="kpi-net-worth">NT$ 12,850,000</div>
+          <div class="kpi-sub positive" id="kpi-ytd">YTD: +18.5%</div>
         </div>
-
         <div class="kpi-card">
-          <div class="kpi-label">
-            <span>投組今年累計報酬 (YTD)</span>
-            <span>📈</span>
-          </div>
-          <div class="kpi-value green" id="kpiYtdReturn">+0.00%</div>
-          <div class="kpi-sub" id="kpiAlphaSub">0050 同期 Alpha 超額回報</div>
+          <div class="kpi-title">超額報酬 (Alpha vs 0050)</div>
+          <div class="kpi-value positive" id="kpi-alpha">+4.3%</div>
+          <div class="kpi-sub" id="kpi-benchmark">0050 YTD: +14.2%</div>
         </div>
-
         <div class="kpi-card">
-          <div class="kpi-label">
-            <span>年度被動股息現金流</span>
-            <span>💵</span>
-          </div>
-          <div class="kpi-value yellow" id="kpiDividends">NT$ --</div>
-          <div class="kpi-sub" id="kpiTopUpSub">年度 51.5 萬 TopUp 達標進度</div>
+          <div class="kpi-title">今年累計股息 (Dividends)</div>
+          <div class="kpi-value highlight" id="kpi-dividends">NT$ 425,000</div>
+          <div class="kpi-sub" id="kpi-topup">加碼金進度: 82.5%</div>
         </div>
-
         <div class="kpi-card">
-          <div class="kpi-label">
-            <span>4% SWR 退休達成率</span>
-            <span>🎉</span>
-          </div>
-          <div class="kpi-value purple" id="kpiRetirement">0.0%</div>
-          <div class="kpi-sub" id="kpiRetireSub">安全提領月覆蓋率</div>
+          <div class="kpi-title">財務自由進度 (SWR 4%)</div>
+          <div class="kpi-value success" id="kpi-retirement">93.8%</div>
+          <div class="kpi-sub">目標: NT$ 1,500 萬</div>
         </div>
-      </div>
+      </section>
 
-      <!-- Manager Strategy Callout -->
-      <div class="callout callout-blue">
-        <div style="font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
-          <span>💡</span> 經理人策略決策指引 (Manager Strategy Note)
+      <!-- Manager Summary -->
+      <section class="card summary-card">
+        <div class="card-header">
+          <h3>🧭 首席投資長每日綜述 (CIO Summary)</h3>
         </div>
-        <div id="managerSummaryText">
-          大盤維持健康整理區間，總經風控閘門處於安全模式 (SAFE_MODE)。建議嚴格維持金字塔分批加碼紀律，逢高殖利率甜蜜點與淡季築底期逢低累積優質單位數！
+        <div class="card-body">
+          <p id="manager-summary" class="summary-text">
+            多頭格局持續，總體經濟處於安全模式 (SAFE_MODE)。建議維持加碼核心高股息與美股指數，把握回檔甜甜價分批建立部位。
+          </p>
         </div>
-      </div>
+      </section>
+    </main>
 
-      <!-- Actionable Orders Table -->
-      <div class="table-container">
-        <div class="table-header-box">
-          <div class="table-title">
-            <span>🎯</span>
-            <span>今日操作與待確認委託清單 (Actionable Orders)</span>
-          </div>
-          <span class="pill pill-green" id="orderCountBadge">共 0 筆委託單</span>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>操作動作</th>
-              <th>代號 / 名稱</th>
-              <th class="text-right">現價</th>
-              <th class="text-right">建議金額</th>
-              <th class="text-right">建議股數</th>
-              <th>觸發條件與決策理由</th>
-            </tr>
-          </thead>
-          <tbody id="ordersTableBody">
-            <tr>
-              <td colspan="6" class="text-center" style="color: var(--text-muted); padding: 24px;">
-                今日無觸發實體買賣動作，維持現有高勝率持股配置。
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Tab 2: 四大投組合計 -->
-    <section id="tab-portfolio" class="tab-content" style="display: none;">
-      <div class="section-card">
-        <div class="table-title" style="margin-bottom: 12px;">
-          <span>💼</span>
-          <span>四大子投組資產配置 (Segments A / B / C / D)</span>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>投組名稱</th>
-              <th>核心定位</th>
-              <th class="text-right">當前現值</th>
-              <th class="text-right">實際佔比</th>
-              <th class="text-right">目標配置</th>
-              <th class="text-right">偏離幅度</th>
-              <th class="text-center">風控狀態</th>
-            </tr>
-          </thead>
-          <tbody id="portfolioSegmentsBody">
-            <tr><td colspan="7" class="text-center">載入中...</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="section-card">
-        <div class="table-title" style="margin-bottom: 12px;">
-          <span>🥇</span>
-          <span>黃金部位 (AU9901) 與再平衡防守線</span>
-        </div>
-        <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;" id="goldStatusBox">
-          <div>黃金當前佔比：<strong class="mono yellow" id="goldPctText">0.0%</strong> (目標 5.0% / 上限 12.0%)</div>
-          <div>再平衡策略：<span class="pill pill-blue" id="goldActionText">維持現狀</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Tab 3: 買入目標價 -->
-    <section id="tab-targets" class="tab-content" style="display: none;">
-      <div class="table-container">
-        <div class="table-header-box">
-          <div class="table-title">
-            <span>🍯</span>
-            <span>核心標的殖利率甜蜜點與買入目標價追蹤 (Buy Targets ≤ 3%)</span>
-          </div>
-          <span class="pill pill-yellow">金字塔分批佈局</span>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>標的代號 / 名稱</th>
-              <th class="text-right">當前現價</th>
-              <th class="text-right">目標買進價</th>
-              <th class="text-right">距買點差距</th>
-              <th class="text-right">預估年化殖利率</th>
-              <th class="text-center">策略位階</th>
-            </tr>
-          </thead>
-          <tbody id="targetsTableBody">
-            <tr><td colspan="6" class="text-center">載入中...</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Tab 4: 10 大推播預警矩陣 -->
-    <section id="tab-alerts" class="tab-content" style="display: none;">
-      <div class="table-container">
-        <div class="table-header-box">
-          <div class="table-title">
-            <span>📋</span>
-            <span>10 大智能推播與即時預警矩陣 (Alert Matrix)</span>
-          </div>
-          <span class="pill pill-purple">3 大分類 · 10 大場景全覆蓋</span>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>分類</th>
-              <th>場景名稱</th>
-              <th>觸發時機點</th>
-              <th>核心判定條件 / 數值門檻</th>
-              <th class="text-center">連動頁簽</th>
-            </tr>
-          </thead>
-          <tbody id="alertsTableBody">
-            <!-- Alert Matrix populated by app.js -->
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Tab 5: 退休規劃 -->
-    <section id="tab-retirement" class="tab-content" style="display: none;">
-      <div class="section-card">
-        <div class="table-title" style="margin-bottom: 12px;">
-          <span>🎯</span>
-          <span>4% 安全提領率 (SWR) 與財務自由里程碑</span>
-        </div>
-        <div class="grid-3" style="margin-top: 16px;">
-          <div class="kpi-card">
-            <div class="kpi-label">終極退休目標資本</div>
-            <div class="kpi-value purple" id="retireTargetCapital">NT$ 15,000,000</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-label">目前累積資本現值</div>
-            <div class="kpi-value green" id="retireCurrentCapital">NT$ --</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-label">4% SWR 安全月支出覆蓋率</div>
-            <div class="kpi-value blue" id="retireSWRPercent">0.0%</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Tab 6: 智慧財產權與法律聲明 (詳細條款) -->
-    <section id="tab-legal" class="tab-content" style="display: none;">
-      <div class="section-card" style="border: 1px solid rgba(245, 158, 11, 0.35); background: rgba(17, 24, 39, 0.9);">
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--card-border);">
-          <span style="font-size: 1.5rem;">⚖️</span>
+    <!-- Tab 2: 10 Smart Alert Scenarios -->
+    <main id="tab-alerts" class="tab-content">
+      <section class="card">
+        <div class="card-header flex-between">
           <div>
-            <h3 style="margin: 0; font-size: 1.15rem; color: var(--yellow);">商業智慧財產權聲明、引用規範與法律免責條款</h3>
-            <div style="font-size: 0.76rem; color: var(--text-muted);">Commercial Intellectual Property, Mandatory Citation Policy & Legal Disclaimer</div>
+            <h3>🔔 智能推播中心 · 10 大推播場景總覽表</h3>
+            <p class="subtitle">全自動監控、多因子觸發機制、LINE Bot / Email 即時推播與執行時機</p>
+          </div>
+          <span class="badge badge-safe">10 / 10 場景全時監控中</span>
+        </div>
+        <div class="card-body table-responsive">
+          <table class="data-table scenarios-table">
+            <thead>
+              <tr>
+                <th style="width: 10%;">場景編號</th>
+                <th style="width: 18%;">場景名稱與類型</th>
+                <th style="width: 14%;">觸發時機</th>
+                <th style="width: 24%;">觸發條件與監控指標</th>
+                <th style="width: 14%;">推播管道 / 優先級</th>
+                <th style="width: 10%;">狀態</th>
+                <th style="width: 10%;">預覽</th>
+              </tr>
+            </thead>
+            <tbody id="scenarios-table-body">
+              <!-- Rendered dynamically by app.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- Tab 3: Actionable Orders & Buy Targets -->
+    <main id="tab-orders" class="tab-content">
+      <section class="card">
+        <div class="card-header">
+          <h3>⚡ 盤前/盤中下單指令隊列 (Actionable Orders)</h3>
+        </div>
+        <div class="card-body table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>動作</th>
+                <th>標的代號 / 名稱</th>
+                <th>建議價格</th>
+                <th>建議股數</th>
+                <th>建議金額</th>
+                <th>觸發理由</th>
+              </tr>
+            </thead>
+            <tbody id="orders-table-body">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card mt-4">
+        <div class="card-header">
+          <h3>🎯 核心標的殖利率買點監控 (Buy Targets Sweetspot)</h3>
+        </div>
+        <div class="card-body table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>標的代碼</th>
+                <th>標的名稱</th>
+                <th>現價</th>
+                <th>目標殖利率買點</th>
+                <th>距買點差距 (%)</th>
+                <th>預估殖利率</th>
+                <th>狀態區間</th>
+              </tr>
+            </thead>
+            <tbody id="targets-table-body">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- Tab 4: 4 Defensive Segments -->
+    <main id="tab-segments" class="tab-content">
+      <section class="card">
+        <div class="card-header">
+          <h3>🛡️ 四大防禦資產配置偏離度 (4 Segments Drift)</h3>
+        </div>
+        <div class="card-body table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>資產分類</th>
+                <th>核心角色</th>
+                <th>市值規模 (NT$)</th>
+                <th>目前佔比 (%)</th>
+                <th>目標配置 (%)</th>
+                <th>偏離度 (%)</th>
+                <th>再平衡狀態</th>
+              </tr>
+            </thead>
+            <tbody id="segments-table-body">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- Tab 5: Legal & IP Policy -->
+    <main id="tab-legal" class="tab-content">
+      <section class="card legal-card">
+        <div class="card-header">
+          <h3>⚖️ 智慧財產權宣告、商業授權政策與法律責任免責聲明</h3>
+        </div>
+        <div class="card-body legal-text">
+          <div class="legal-section">
+            <h4>一、 智慧財產權與著作權歸屬聲明 (Intellectual Property & Copyright Notice)</h4>
+            <p>
+              本系統 <strong>FinanceFree-XQ</strong> 及其公開網頁呈現端 <strong>FinanceFree-XQ-Pub</strong>，所包含之全部原始碼、演算法架構、多因子評分機制、量化策略模型、HTML/CSS/JavaScript 前端渲染樣板（Format 1）、視覺化圖表排版及數據分析產出，其著作權、商標權、營業秘密及專利申請權等全部智慧財產權，<strong>均屬原作者 Louis Wu 依法獨立享有與專屬擁有</strong>。
+            </p>
+            <p>
+              未經原作者正式書面授權，任何個人、法人或組織均不得以任何形式（包括但不限於重製、改作、反向工程、反組譯、鏡像鏡射、深度連結、公開傳輸、散布、轉售或建立衍生作品）利用本系統之全部或任何部分。
+            </p>
+          </div>
+
+          <div class="legal-section">
+            <h4>二、 商業使用限制與強制引用告知規範 (Commercial Use Restriction & Attribution Policy)</h4>
+            <ul>
+              <li><strong>嚴禁未經授權商業利用：</strong> 嚴格禁止將本系統之分析結論、HTML 渲染報表、推播格式或模型數據用於任何收費投顧、代操服務、付費社群、商業出版、商業軟體整合或任何直接/間接獲利行為。</li>
+              <li><strong>禁止 AI / LLM 爬蟲抓取：</strong> 嚴格禁止未經授權使用爬蟲或自動化工具爬取本系統網頁與數據以進行人工智慧 (AI) 或大型語言模型 (LLM) 之訓練與微調。</li>
+              <li><strong>非營利與學術引用義務：</strong> 任何基於學術研究、個人學習之非營利性質引用，<strong>必須於引用前書面告知原作者</strong>，並於引用作品最顯著處明確標註來源：<br>
+                <code class="citation-code">引用自 FinanceFree-XQ 投資決策系統 (Author: Louis Wu / GitHub: louiswu1568/FinanceFree-XQ-Pub)</code>
+              </li>
+            </ul>
+          </div>
+
+          <div class="legal-section">
+            <h4>三、 專業金融投資與法律免責聲明 (Financial Non-Advisory & Risk Disclaimer)</h4>
+            <p>
+              本頁面及系統所有推播、報表及數據，純屬基於歷史數據與量化模型之<strong>個人研究心得與演算法技術展示，絕不構成任何證券、期貨、基金、衍生性金融商品之買賣建議、投資諮詢、要約或獲利保證</strong>。
+            </p>
+            <p>
+              金融市場投資具有本質風險，歷史績效絕不代表未來收益。使用者於進行任何投資交易決策前，應審慎評估自身財務狀況與風險承受能力，並獨立承擔所有投資盈虧。本系統作者對於任何人因參考或使用本系統內容所致之任何直接、間接、附隨或衍生性損害或利潤損失，<strong>概不承擔任何法律、民事賠償或連帶責任</strong>。
+            </p>
+          </div>
+
+          <div class="legal-section">
+            <h4>四、 侵權追訴與準據法管轄 (Trade Secrets, Infringement & Jurisdiction)</h4>
+            <p>
+              凡有任何侵害本專案智慧財產權、違反營業秘密法、盜用 HTML 渲染樣式或違法商業營利之行為，原作者保留依法追究一切民事侵權賠償（包含法定懲罰性賠償）及刑事責任之權利。
+            </p>
+            <p>
+              本聲明之解釋與適用，均依<strong>中華民國法令</strong>為準據法。凡因本系統或本條款所生之爭議，雙方同意以<strong>臺灣臺北地方法院</strong>為第一審專屬管轄法院。
+            </p>
           </div>
         </div>
-
-        <div class="legal-body" style="font-size: 0.8rem; line-height: 1.7; color: #cbd5e1; display: flex; flex-direction: column; gap: 14px;">
-          
-          <div style="background: rgba(255,255,255,.02); padding: 14px; border-radius: 8px; border-left: 3px solid var(--accent);">
-            <h4 style="color: var(--accent-light); margin-bottom: 6px; font-size: 0.88rem;">一、 智慧財產權與著作權所有權利保留 (Proprietary IP & Copyright All Rights Reserved)</h4>
-            <p>
-              本系統（包含但不限於 <strong>FinanceFree-XQ</strong> 投資決策架構、量化演算法、Format 1 前端 HTML/CSS/JS 介面渲染程式碼、資料視覺化圖表設計、金字塔動態加碼邏輯、殖利率甜蜜點模型、多重風控閘門演算法及所有產出之分析報告內容），其全部智慧財產權、專利權申請權、商標權、營業秘密與著作權，均屬原創作者所有，受《中華民國著作權法》、《商標法》、《營業秘密法》以及國際智慧財產權條約之嚴密保護。非經合法書面授權，任何人不得主張任何形式之共有或默示授權。
-            </p>
-          </div>
-
-          <div style="background: rgba(255,255,255,.02); padding: 14px; border-radius: 8px; border-left: 3px solid var(--yellow);">
-            <h4 style="color: var(--yellow); margin-bottom: 6px; font-size: 0.88rem;">二、 商業使用限制與強制引用告知規範 (Commercial Use Restriction & Mandatory Citation Policy)</h4>
-            <p>
-              1. <strong>禁止未經授權之商業利用</strong>：任何自然人、法人或其他組織，未經著作權人事前正式書面授權同意，嚴禁以任何方式（包括但不限於重製、改作、公開播送、公開傳輸、散布、發行、銷售、再授權、反向工程、抓取 (Scraping) 或作為人工智慧 AI / LLM 訓練模型資料集）將本專案原始碼、渲染成果或分析報告之全部或一部用於任何商業營利目的。<br>
-              2. <strong>學術與個人非營利引用規範</strong>：若基於個人研究或學術交流目的引用本系統內容，<strong>必須事先主動告知著作權人</strong>，並於引用之顯著位置明確標註完整出處：<code>「引用自 FinanceFree-XQ 投資決策系統 (Author: Louis Wu / GitHub: louiswu1568/FinanceFree-XQ-Pub)」</code>，不得為任何曲解、斷章取義或損害原創聲譽之利用。
-            </p>
-          </div>
-
-          <div style="background: rgba(255,255,255,.02); padding: 14px; border-radius: 8px; border-left: 3px solid var(--red);">
-            <h4 style="color: var(--red); margin-bottom: 6px; font-size: 0.88rem;">三、 專業金融投資風險揭露與免責聲明 (Financial Investment Disclaimer & Risk Disclosure)</h4>
-            <p>
-              1. <strong>非投資建議聲明</strong>：本平台及所有報告所揭露之數據、指標分析、買入目標價、進場時機提醒、風控狀態與經理人決策摘要，均係基於歷史數據、量化模型與公開資訊之自動化運算結果，<strong>僅供個人資產管理技術研究與決策輔助演示之用，絕不構成任何形式之證券、期貨、基金、衍生性金融商品之投資顧問、買賣推薦、獲利保證、要約或招攬</strong>。<br>
-              2. <strong>市場風險自負</strong>：金融市場瞬息萬變，歷史績效絕不代表未來之獲利保證。任何投資決策均具有本金損失之固有風險（包括但不限於市場系統性風險、流動性風險、信用風險、匯率波動及槓桿穿倉風險）。使用者依據本報告任何內容所為之任何投資操作，均應審慎獨立判斷並自行負擔全部之盈虧與責任。<br>
-              3. <strong>無瑕疵擔保責任</strong>：本系統力求數據之正確性，但對於第三方資料源（如證券交易所、FinMind、基富通等）之延遲、中斷、遺漏或錯誤，以及因網路傳輸異常或系統維護所生之任何直接、間接、附帶或衍生性損害，作者及開發團隊概不承擔任何法律與賠償責任。
-            </p>
-          </div>
-
-          <div style="background: rgba(255,255,255,.02); padding: 14px; border-radius: 8px; border-left: 3px solid var(--blue);">
-            <h4 style="color: var(--blue); margin-bottom: 6px; font-size: 0.88rem;">四、 侵權追訴與準據法管轄 (Legal Recourse, Trade Secrets & Governing Law)</h4>
-            <p>
-              凡未經許可擅自抄襲、未告知引用、商業剽竊本系統專利架構、HTML/CSS 渲染版型或專有量化模型者，著作權人將全權委任專業律師依法保全證據，並提出包括《著作權法》第 84 條至第 90 條之排除侵害、銷毀重製物、民事損害賠償訴訟（最高按法定最高額追賠）及《營業秘密法》之刑事追訴。本聲明之解釋與適用均以<strong>中華民國法律</strong>為準據法，如有爭議，雙方合意以<strong>臺灣臺北地方法院</strong>為第一審專屬管轄法院。
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
     <!-- Footer -->
-    <footer id="legal-section">
-      <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 8px; flex-wrap: wrap;">
-        <span style="color: var(--text);">© 2026 FinanceFree-XQ. All Rights Reserved. 版權所有 · 翻印侵權必究</span>
-        <a href="javascript:void(0)" onclick="switchTab('tab-legal')" style="color: var(--yellow); text-decoration: none;">⚖️ 智慧財產權與法律免責條款</a>
+    <footer class="app-footer">
+      <div class="footer-links">
+        <span>© 2026 <strong>FinanceFree-XQ</strong> · All Rights Reserved (Louis Wu).</span>
+        <span>|</span>
+        <a href="https://github.com/louiswu1568/FinanceFree-XQ-Pub.git" target="_blank" class="footer-link">GitHub Repository</a>
       </div>
-      <div style="font-size: 0.68rem; color: var(--text-dim); max-width: 800px; margin: 0 auto; line-height: 1.4;">
-        【法定免責提示】本站所有量化數據、HTML 渲染報表與經理人決策摘要僅供資產配置技術演示之用，不構成任何證券投資買賣建議。引用或商業轉載需事先取得書面授權告知。
-      </div>
+      <p class="footer-note">專業量化投資決策系統 · Format 1 HTML 渲染標準 · 智慧財產權受法律保護 · 翻印轉載必究</p>
     </footer>
+  </div>
 
+  <!-- Modal for Scenario Preview -->
+  <div id="preview-modal" class="modal-backdrop" style="display: none;">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-title">場景推播內容預覽</h3>
+        <button id="modal-close" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="preview-channel-badge" id="modal-channel">LINE Official Bot</div>
+        <div class="preview-bubble" id="modal-content">
+          載入中...
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="app.js"></script>
