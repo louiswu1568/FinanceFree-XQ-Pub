@@ -1,6 +1,20 @@
 {
   "version": 2,
   "cleanUrls": true,
+  "routes": [
+    {
+      "src": "/[Aa]rchive",
+      "dest": "/archive.html"
+    },
+    {
+      "src": "/[Aa]rchive/(.*)",
+      "dest": "/archive.html"
+    },
+    {
+      "src": "/archive.html",
+      "dest": "/archive.html"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -24,7 +38,7 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=60, s-maxage=60, must-revalidate"
+          "value": "public, max-age=30, s-maxage=30, must-revalidate"
         }
       ]
     }

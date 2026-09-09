@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🗄️ 歷史報告存檔庫 (Archive) · FinanceFree-XQ-Pub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .archive-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #38bdf8;
+      padding: 10px 20px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: all 0.2s ease;
+    }
+    .btn-back:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: #38bdf8;
+      transform: translateX(-3px);
+    }
+    .archive-search-box {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .search-input {
+      flex: 1;
+      max-width: 400px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 10px 16px;
+      color: #f8fafc;
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+    }
+    .archive-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .archive-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+    }
+    .archive-card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    }
+    .archive-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .archive-date {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+    .archive-file-tag {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+    .archive-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px;
+      border-radius: 12px;
+    }
+    .metric-item-label {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      display: block;
+    }
+    .metric-item-val {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+    .archive-summary-snippet {
+      font-size: 0.84rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .btn-load-report {
+      width: 100%;
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .btn-load-report:hover {
+      background: linear-gradient(135deg, #0369a1, #1d4ed8);
+      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <!-- Ambient Glow Background Orbs -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+
+  <!-- Legal Notice Top Strip -->
+  <aside class="legal-strip">
+    <div class="legal-strip-inner">
+      <span class="legal-icon">⚖️</span>
+      <span class="legal-text"><strong>商業智慧財產權聲明：</strong> 本報告存檔庫全部歷史演算法、Format 1 前端渲染架構均屬原作者 Louis Wu 所有。未經授權嚴禁用於商業營利。</span>
+    </div>
+  </aside>
+
+  <div class="main-wrapper">
+    <div class="glass-container">
+      
+      <!-- Archive Top Header -->
+      <div class="archive-header">
+        <div>
+          <div class="brand-badge">HISTORY ARCHIVE REPOSITORY</div>
+          <h1 class="gradient-title">🗄️ 歷史報告存檔庫 (Archive)</h1>
+          <p class="brand-subtitle">歷次推播全資產體檢報告快照 · 年月日時分完整歷史紀錄與回溯瀏覽</p>
+        </div>
+        <a href="./" class="btn-back">
+          <span>📊 返回最新體檢報告</span>
+        </a>
+      </div>
+
+      <!-- Search & Filters -->
+      <div class="archive-search-box">
+        <input type="text" id="archive-search" class="search-input" placeholder="🔍 搜尋日期 (例：2026-09 或 09-09)..." />
+      </div>
+
+      <!-- Archive Cards Container -->
+      <div id="archive-list" class="archive-card-grid">
+        <!-- Rendered dynamically by script below -->
+        <div class="archive-card">
+          <p style="color:#94a3b8; text-align:center;">載入歷史存檔中...</p>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="dashboard-footer">
+        <div class="footer-links">
+          <span>© 2026 <strong>FinanceFree-XQ</strong> · All Rights Reserved (Louis Wu).</span>
+          <span class="footer-dot">•</span>
+          <a href="./">即時體檢首頁</a>
+          <span class="footer-dot">•</span>
+          <a href="https://github.com/louiswu1568/FinanceFree-XQ-Pub.git" target="_blank">GitHub Repository</a>
+        </div>
+        <p class="footer-legal-tag">專業量化投資決策系統 · Format 1 歷史存檔庫 · 智慧財產權受法律保護</p>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const container = document.getElementById('archive-list');
+      const searchInput = document.getElementById('archive-search');
+      let allArchives = [];
+
+      try {
+        const res = await fetch('./data/archive_index.json?t=' + Date.now());
+        if (!res.ok) throw new Error('Cannot load archive_index.json');
+        allArchives = await res.json();
+      } catch (e) {
+        console.warn('Fallback to current live report as archive record');
+        allArchives = [
+          {
+            "id": "20260909_192300",
+            "filename": "report_20260909_192300.json",
+            "date_display": "2026-09-09 19:23:00",
+            "net_worth": 8058474.68,
+            "goal_coverage_pct": 32.23,
+            "macro_gate": "CAUTION",
+            "port_a_pnl_pct": 13.57,
+            "gold_pct": 20.83,
+            "summary": "總體經濟維持 CAUTION 謹慎防禦模式。主力帳戶 A 獲利 +13.57%（0050 獲利 +17.7%、正2 獲利 +17.4%）。實體黃金因金價大漲現值達 20.83% 超過上限。"
+          }
+        ];
+      }
+
+      function render(list) {
+        container.innerHTML = '';
+        if (list.length === 0) {
+          container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#94a3b8;">查無符合條件之歷史報告存檔。</div>';
+          return;
+        }
+
+        list.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'archive-card';
+          card.innerHTML = `
+            <div>
+              <div class="archive-card-top">
+                <div>
+                  <div class="archive-date">📅 ${item.date_display}</div>
+                  <div class="archive-file-tag">${item.filename || item.id}</div>
+                </div>
+                <span class="badge ${item.macro_gate === 'SAFE_MODE' ? 'badge-safe' : 'badge-caution'}">${item.macro_gate}</span>
+              </div>
+              <div class="archive-metrics">
+                <div>
+                  <span class="metric-item-label">總淨值 (Net Worth)</span>
+                  <span class="metric-item-val">NT$ ${Number(item.net_worth || 8058475).toLocaleString()}</span>
+                </div>
+                <div>
+                  <span class="metric-item-label">達標率 (Coverage)</span>
+                  <span class="metric-item-val" style="color:#38bdf8;">${Number(item.goal_coverage_pct || 32.23).toFixed(1)}%</span>
+                </div>
+                <div>
+                  <span class="metric-item-label">主力帳戶 A 損益</span>
+                  <span class="metric-item-val" style="color:#34d399;">+${Number(item.port_a_pnl_pct || 13.57).toFixed(1)}%</span>
+                </div>
+                <div>
+                  <span class="metric-item-label">實體黃金佔比</span>
+                  <span class="metric-item-val" style="color:#fbbf24;">${Number(item.gold_pct || 20.83).toFixed(1)}%</span>
+                </div>
+              </div>
+              <p class="archive-summary-snippet">${item.summary || '全資產定時體檢與智能推播報告存檔。'}</p>
+            </div>
+            <button class="btn-load-report" onclick="window.location.href='./?archive=' + encodeURIComponent('${item.filename || ''}')">
+              <span>🔍 查閱此份報告完整內容</span>
+            </button>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      render(allArchives);
+
+      searchInput.addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase().trim();
+        const filtered = allArchives.filter(a => 
+          (a.date_display && a.date_display.toLowerCase().includes(q)) ||
+          (a.filename && a.filename.toLowerCase().includes(q)) ||
+          (a.summary && a.summary.toLowerCase().includes(q))
+        );
+        render(filtered);
+      });
+    });
+  </script>
+</body>
+</html>

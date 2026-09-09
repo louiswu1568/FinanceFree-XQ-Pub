@@ -51,13 +51,26 @@ window.showScenarioPreview = function(id, name, channel, previewText) {
 };
 
 async function loadReportData() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const archiveFile = urlParams.get('archive');
+  let fetchUrl = './data/latest_report.json?t=' + Date.now();
+
+  if (archiveFile) {
+    fetchUrl = './data/archive/' + encodeURIComponent(archiveFile) + '?t=' + Date.now();
+    const banner = document.createElement('div');
+    banner.style.cssText = 'background: rgba(245, 158, 11, 0.2); border: 1px solid #fbbf24; color: #fbbf24; padding: 10px 20px; border-radius: 12px; margin-bottom: 20px; text-align: center; font-weight: 600; font-size: 0.9rem;';
+    banner.innerHTML = `⚠️ 正在瀏覽歷史存檔報告：<strong>${archiveFile}</strong> · <a href="./" style="color:#38bdf8; text-decoration:underline; margin-left:10px;">返回最新即時體檢</a>`;
+    const container = document.querySelector('.glass-container');
+    if (container) container.insertBefore(banner, container.firstChild.nextSibling);
+  }
+
   try {
-    const res = await fetch('./data/latest_report.json?t=' + Date.now());
+    const res = await fetch(fetchUrl);
     if (!res.ok) throw new Error(`HTTP error ${res.status}`);
     const data = await res.json();
     renderAll(data);
   } catch (err) {
-    console.warn('Loading latest_report.json failed, using real embedded fallback:', err);
+    console.warn('Loading data failed, using real embedded fallback:', err);
     renderAll(getRealFallbackData());
   }
 }
