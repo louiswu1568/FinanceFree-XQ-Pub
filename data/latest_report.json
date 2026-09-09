@@ -1,0 +1,264 @@
+{
+  "report_title": "FinanceFree-XQ 投資分析體檢報告 (Format 1)",
+  "report_date": "2026-09-09 18:52",
+  "macro_gate": "SAFE_MODE",
+  "kpis": {
+    "net_worth": 12850000.0,
+    "portfolio_ytd_pct": 18.5,
+    "benchmark_0050_ytd_pct": 14.2,
+    "alpha_pct": 4.300000000000001,
+    "ytd_dividends": 425000.0,
+    "annual_topup_goal": 515000.0,
+    "topup_progress_pct": 82.52427184466019,
+    "retirement_progress_pct": 85.6
+  },
+  "manager_summary": "市場維持多頭健康整理格局，總經風控閘門處於安全模式 (SAFE_MODE)。建議維持金字塔分批加碼紀律，逢高殖利率甜蜜點與淡季築底期逢低累積優質單位數！",
+  "actionable_orders": [
+    {
+      "action": "BUY",
+      "symbol": "006208",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 2000,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "00646",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 1500,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "00662",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 1000,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "00878",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 1500,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "00679B",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 1000,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "006208",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 2000,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "00646",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 1500,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "00662",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 1000,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "00878",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 1500,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "00679B",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 1000,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "006208",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 2000,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "006208",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 2000,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "00646",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 1500,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "00662",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 1000,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "00878",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 1500,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "00679B",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 1000,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "006208",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 2000,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "006208",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 2000,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "00646",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 1500,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "00662",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 1000,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "00878",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 1500,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    },
+    {
+      "action": "BUY",
+      "symbol": "00679B",
+      "name": "元大台灣50",
+      "price": 185.5,
+      "amount": 1000,
+      "shares": 269,
+      "reason": "60日乖離率觸發加碼"
+    }
+  ],
+  "segments": [
+    {
+      "name": "投組 A：核心被動高息",
+      "role": "高股息現金流錨定",
+      "value": 4500000,
+      "actual": 35.0,
+      "target": 35.0,
+      "diff": 0.0,
+      "status": "正常穩健"
+    },
+    {
+      "name": "投組 B：全球指數成長",
+      "role": "0050 / 006208 資本利得",
+      "value": 3850000,
+      "actual": 30.0,
+      "target": 30.0,
+      "diff": 0.0,
+      "status": "正常穩健"
+    },
+    {
+      "name": "投組 C：債券防禦資產",
+      "role": "美債 / 投資級債券保護",
+      "value": 2600000,
+      "actual": 20.2,
+      "target": 20.0,
+      "diff": 0.2,
+      "status": "防守就緒"
+    },
+    {
+      "name": "投組 D：黃金與流動性",
+      "role": "AU9901 實體避險錨",
+      "value": 1900000,
+      "actual": 14.8,
+      "target": 15.0,
+      "diff": -0.2,
+      "status": "適度配置"
+    }
+  ],
+  "gold": {
+    "pct": 12.0,
+    "action": "維持現狀"
+  },
+  "buy_targets": [],
+  "retirement": {
+    "target_capital": 15000000,
+    "current_savings": 12850000.0,
+    "coverage_pct": 93.8
+  }
+}

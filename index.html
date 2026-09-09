@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinanceFree-XQ · Format 1 全資產投資體檢與智能推播報告</title>
+  <meta name="description" content="FinanceFree-XQ 全自動化多重資產配置、買入目標價追蹤與 10 大推播預警報告">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Top Header Banner -->
+    <header class="header-card">
+      <div>
+        <div class="brand-title">
+          <span>🏛️</span>
+          <span>FinanceFree-XQ · 投資體檢報告</span>
+          <span class="pill pill-blue" style="font-size: 0.68rem">Format 1</span>
+          <span class="pill pill-green" style="font-size: 0.68rem">v3.1 Live</span>
+        </div>
+        <div class="brand-subtitle" id="reportSubtitle">
+          全自動化多重資產配置 · 10 大推播預警中心 · 財務自由退休路徑
+        </div>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+        <span class="pill pill-purple" id="headerDatePill">📅 報告時間：載入中...</span>
+        <span class="pill pill-green" id="headerMacroPill">🛡️ 風控狀態：SAFE_MODE</span>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs" id="navTabs">
+      <button class="nav-tab active" onclick="switchTab('tab-summary')">📊 投資總覽與決策</button>
+      <button class="nav-tab" onclick="switchTab('tab-portfolio')">💼 四大投組合計</button>
+      <button class="nav-tab" onclick="switchTab('tab-targets')">🍯 買入目標價 (≤3%)</button>
+      <button class="nav-tab" onclick="switchTab('tab-alerts')">🔔 10 大推播預警矩陣</button>
+      <button class="nav-tab" onclick="switchTab('tab-retirement')">🎯 4% 提領退休規劃</button>
+    </nav>
+
+    <!-- Tab 1: 投資總覽與今日決策 -->
+    <section id="tab-summary" class="tab-content">
+      <!-- 4 Core KPIs -->
+      <div class="grid-4" id="kpiContainer">
+        <div class="kpi-card">
+          <div class="kpi-label">
+            <span>個人總淨值 (Net Worth)</span>
+            <span>💎</span>
+          </div>
+          <div class="kpi-value green" id="kpiNetWorth">NT$ --</div>
+          <div class="kpi-sub" id="kpiNetWorthSub">總資產扣除負債結餘</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">
+            <span>投組今年累計報酬 (YTD)</span>
+            <span>📈</span>
+          </div>
+          <div class="kpi-value green" id="kpiYtdReturn">+0.00%</div>
+          <div class="kpi-sub" id="kpiAlphaSub">0050 同期 Alpha 超額回報</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">
+            <span>年度被動股息現金流</span>
+            <span>💵</span>
+          </div>
+          <div class="kpi-value yellow" id="kpiDividends">NT$ --</div>
+          <div class="kpi-sub" id="kpiTopUpSub">年度 51.5 萬 TopUp 達標進度</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">
+            <span>4% SWR 退休達成率</span>
+            <span>🎉</span>
+          </div>
+          <div class="kpi-value purple" id="kpiRetirement">0.0%</div>
+          <div class="kpi-sub" id="kpiRetireSub">安全提領月覆蓋率</div>
+        </div>
+      </div>
+
+      <!-- Manager Strategy Callout -->
+      <div class="callout callout-blue">
+        <div style="font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+          <span>💡</span> 經理人策略決策指引 (Manager Strategy Note)
+        </div>
+        <div id="managerSummaryText">
+          大盤維持健康整理區間，總經風控閘門處於安全模式 (SAFE_MODE)。建議嚴格維持金字塔分批加碼紀律，逢高殖利率甜蜜點與淡季築底期逢低累積優質單位數！
+        </div>
+      </div>
+
+      <!-- Actionable Orders Table -->
+      <div class="table-container">
+        <div class="table-header-box">
+          <div class="table-title">
+            <span>🎯</span>
+            <span>今日操作與待確認委託清單 (Actionable Orders)</span>
+          </div>
+          <span class="pill pill-green" id="orderCountBadge">共 0 筆委託單</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>操作動作</th>
+              <th>代號 / 名稱</th>
+              <th class="text-right">現價</th>
+              <th class="text-right">建議金額</th>
+              <th class="text-right">建議股數</th>
+              <th>觸發條件與決策理由</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTableBody">
+            <tr>
+              <td colspan="6" class="text-center" style="color: var(--text-muted); padding: 24px;">
+                今日無觸發實體買賣動作，維持現有高勝率持股配置。
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Tab 2: 四大投組合計 -->
+    <section id="tab-portfolio" class="tab-content" style="display: none;">
+      <div class="section-card">
+        <div class="table-title" style="margin-bottom: 12px;">
+          <span>💼</span>
+          <span>四大子投組資產配置 (Segments A / B / C / D)</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>投組名稱</th>
+              <th>核心定位</th>
+              <th class="text-right">當前現值</th>
+              <th class="text-right">實際佔比</th>
+              <th class="text-right">目標配置</th>
+              <th class="text-right">偏離幅度</th>
+              <th class="text-center">風控狀態</th>
+            </tr>
+          </thead>
+          <tbody id="portfolioSegmentsBody">
+            <tr><td colspan="7" class="text-center">載入中...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-card">
+        <div class="table-title" style="margin-bottom: 12px;">
+          <span>🥇</span>
+          <span>黃金部位 (AU9901) 與再平衡防守線</span>
+        </div>
+        <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;" id="goldStatusBox">
+          <div>黃金當前佔比：<strong class="mono yellow" id="goldPctText">0.0%</strong> (目標 5.0% / 上限 12.0%)</div>
+          <div>再平衡策略：<span class="pill pill-blue" id="goldActionText">維持現狀</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 3: 買入目標價 -->
+    <section id="tab-targets" class="tab-content" style="display: none;">
+      <div class="table-container">
+        <div class="table-header-box">
+          <div class="table-title">
+            <span>🍯</span>
+            <span>核心標的殖利率甜蜜點與買入目標價追蹤 (Buy Targets ≤ 3%)</span>
+          </div>
+          <span class="pill pill-yellow">金字塔分批佈局</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>標的代號 / 名稱</th>
+              <th class="text-right">當前現價</th>
+              <th class="text-right">目標買進價</th>
+              <th class="text-right">距買點差距</th>
+              <th class="text-right">預估年化殖利率</th>
+              <th class="text-center">策略位階</th>
+            </tr>
+          </thead>
+          <tbody id="targetsTableBody">
+            <tr><td colspan="6" class="text-center">載入中...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Tab 4: 10 大推播預警矩陣 -->
+    <section id="tab-alerts" class="tab-content" style="display: none;">
+      <div class="table-container">
+        <div class="table-header-box">
+          <div class="table-title">
+            <span>📋</span>
+            <span>10 大智能推播與即時預警矩陣 (Alert Matrix)</span>
+          </div>
+          <span class="pill pill-purple">3 大分類 · 10 大場景全覆蓋</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>分類</th>
+              <th>場景名稱</th>
+              <th>觸發時機點</th>
+              <th>核心判定條件 / 數值門檻</th>
+              <th class="text-center">連動頁簽</th>
+            </tr>
+          </thead>
+          <tbody id="alertsTableBody">
+            <!-- Alert Matrix populated by app.js -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Tab 5: 退休規劃 -->
+    <section id="tab-retirement" class="tab-content" style="display: none;">
+      <div class="section-card">
+        <div class="table-title" style="margin-bottom: 12px;">
+          <span>🎯</span>
+          <span>4% 安全提領率 (SWR) 與財務自由里程碑</span>
+        </div>
+        <div class="grid-3" style="margin-top: 16px;">
+          <div class="kpi-card">
+            <div class="kpi-label">終極退休目標資本</div>
+            <div class="kpi-value purple" id="retireTargetCapital">NT$ 15,000,000</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">目前累積資本現值</div>
+            <div class="kpi-value green" id="retireCurrentCapital">NT$ --</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">4% SWR 安全月支出覆蓋率</div>
+            <div class="kpi-value blue" id="retireSWRPercent">0.0%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div>FinanceFree-XQ · 全自動化高股息與指數化投資決策系統 v3.1</div>
+      <div style="margin-top: 4px; font-size: 0.68rem; color: var(--text-dim)">
+        託管於 Vercel 全球 Edge CDN · 本報告資料由本地核心引擎自動安全同步導出
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
