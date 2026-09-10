@@ -369,13 +369,16 @@ function renderAll(data) {
     if (pnlEl) {
       const pnlVal = Number(k.port_a_pnl || 0);
       const isGainPnl = pnlVal >= 0;
+      // 台股金融色彩鐵律：正值/獲利 = 紅，負值/虧損 = 綠。
       pnlEl.textContent = `${isGainPnl ? '+' : ''}NT$ ${pnlVal.toLocaleString()}`;
-      pnlEl.className = `kpi-num ${isGainPnl ? 'positive' : 'warning'}`;
+      pnlEl.className = `kpi-num ${isGainPnl ? 'val-pos' : 'val-neg'}`;
     }
-    const gainBadge = document.querySelector('#tab-overview .kpi-card:nth-child(2) .gain-badge');
+    const gainBadge = document.querySelector('#tab-overview .kpi-card:nth-child(2) .pnl-pct-badge');
     if (gainBadge && k.port_a_pnl_pct !== undefined) {
       const pnlPct = Number(k.port_a_pnl_pct);
-      gainBadge.textContent = `${pnlPct >= 0 ? '+' : ''}${pnlPct.toFixed(2)}% 獲利`;
+      const isUp = pnlPct >= 0;
+      gainBadge.textContent = `${isUp ? '+' : ''}${pnlPct.toFixed(2)}% 獲利`;
+      gainBadge.className = `pnl-pct-badge ${isUp ? 'up' : 'down'}`;
     }
     const subMutedA = document.querySelector('#tab-overview .kpi-card:nth-child(2) .sub-muted');
     if (subMutedA && data.portfolios_overview) {
@@ -396,6 +399,11 @@ function renderAll(data) {
 
     const goalYearEl = document.getElementById('kpi-goal-year');
     if (goalYearEl) goalYearEl.textContent = `${k.estimated_goal_year || '未知'} 年`;
+
+    const gapEl = document.getElementById('kpi-gap-to-goal');
+    if (gapEl && k.gap_to_goal !== undefined) {
+      gapEl.textContent = `尚需累積: NT$ ${Number(k.gap_to_goal || 0).toLocaleString()}`;
+    }
   }
 
   // 3. CIO Summary
@@ -431,7 +439,7 @@ function renderAccountsTable(accounts) {
       <td><span class="sub-metrics">${a.role}</span></td>
       <td><strong>NT$ ${Number(a.value || 0).toLocaleString()}</strong></td>
       <td>${Number(a.weight_pct || 0).toFixed(1)}%</td>
-      <td class="${isGain ? 'positive' : 'warning'}">
+      <td class="${isGain ? 'val-pos' : 'val-neg'}">
         <strong>${isGain ? '+' : ''}NT$ ${Number(a.pnl || 0).toLocaleString()}</strong> 
         (${Number(a.pnl_pct || 0) > 0 ? '+' : ''}${Number(a.pnl_pct || 0).toFixed(2)}%)
       </td>
@@ -514,10 +522,10 @@ function renderHoldingsTable(holdings) {
       <td>NT$ ${Number(h.price || 0).toFixed(2)}</td>
       <td>NT$ ${Number(h.cost_basis || 0).toFixed(2)}</td>
       <td><strong>NT$ ${Number(h.market_value || 0).toLocaleString()}</strong></td>
-      <td class="${isGain ? 'positive' : 'warning'}">
+      <td class="${isGain ? 'val-pos' : 'val-neg'}">
         ${isGain ? '+' : ''}NT$ ${Number(h.pnl || 0).toLocaleString()}
       </td>
-      <td class="${isGain ? 'positive' : 'warning'}">
+      <td class="${isGain ? 'val-pos' : 'val-neg'}">
         <strong>${isGain ? '+' : ''}${Number(h.pnl_pct || 0).toFixed(2)}%</strong>
       </td>
       <td><span class="badge badge-safe">${h.status}</span></td>

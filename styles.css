@@ -314,6 +314,11 @@ body {
 .kpi-num.positive { color: #34d399; }
 .kpi-num.warning { color: #fbbf24; }
 .kpi-num.highlight { color: #38bdf8; }
+/* 台股金融色彩鐵律：紅漲（正值/獲利）、綠跌（負值/虧損），與美式配色相反。
+   專用於真正綁定損益正負號的數值，與上面 .positive/.warning（非損益用途，
+   如狀態徽章）分開命名，避免互相污染。 */
+.kpi-num.val-pos { color: #ef4444; }
+.kpi-num.val-neg { color: #10b981; }
 
 .progress-wrap {
   margin-top: 5px;
@@ -363,6 +368,17 @@ body {
   font-weight: 700;
   font-size: 0.75rem;
 }
+/* 主力帳戶 A 損益率徽章 — 台股紅漲綠跌配色，隨真實正負號動態切換
+   （與上面 .gain-badge/.alert-pill 用於資產配置「正常/警戒」狀態燈號的
+   語意不同，故獨立命名，互不影響）。 */
+.pnl-pct-badge {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+.pnl-pct-badge.up { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+.pnl-pct-badge.down { background: rgba(16, 185, 129, 0.2); color: #34d399; }
 .sub-muted {
   font-size: 0.76rem;
   color: #64748b;
@@ -442,6 +458,15 @@ body {
 .luxury-table tr:hover td {
   background: rgba(255, 255, 255, 0.03);
 }
+/* 4 大專戶配置表 / 主力持股明細表 損益儲存格 — 台股紅漲綠跌配色。
+   之前完全沒有對應樣式規則，儲存格會顯示為無色（等同 bug）；現在補上，
+   且與下面「距買點差距」的 .warning（非損益、僅為接近買點提醒）分開命名，
+   避免同一個 class 名稱被兩種不同語意誤用。 */
+.luxury-table td.val-pos { color: #ef4444; font-weight: 600; }
+.luxury-table td.val-neg { color: #10b981; font-weight: 600; }
+/* 買入目標價表「距買點差距」欄位 — 僅為關注/接近買點提醒，非損益正負號，
+   維持中性琥珀色提示，不套用紅漲綠跌規則。 */
+.luxury-table td.warning { color: #fbbf24; font-weight: 600; }
 
 /* Min-widths for tables on mobile */
 .scenarios-table { min-width: 720px; }
