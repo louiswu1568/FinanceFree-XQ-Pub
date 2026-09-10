@@ -350,40 +350,43 @@ function renderAll(data) {
     if (netWorthEl) {
       const nw = Number(k.net_worth || 0);
       const ta = Number(k.total_assets || 0);
-      netWorthEl.textContent = NT$ ;
+      netWorthEl.textContent = `NT$ ${nw.toLocaleString()}`;
       const subBadge = document.querySelector('#tab-overview .kpi-card:nth-child(1) .badge-sub');
       if (subBadge && ta > 0) {
-        subBadge.textContent = 總資產 NT$ ;
+        subBadge.textContent = `總資產 NT$ ${ta.toLocaleString()}`;
       }
     }
-    
-    const cov = Number(k.goal_coverage_pct || 32.23).toFixed(2);
+
+    // SSOT 鐵律：不得使用歷史寫死常數作為 fallback，缺值一律回退 0。
+    const cov = Number(k.goal_coverage_pct || 0).toFixed(2);
     const covEl = document.getElementById('kpi-coverage');
-    if (covEl) covEl.textContent = ${cov}%;
+    if (covEl) covEl.textContent = `${cov}%`;
 
     const progBar = document.getElementById('kpi-progress-bar');
-    if (progBar) progBar.style.width = ${Math.min(100, cov)}%;
-    
+    if (progBar) progBar.style.width = `${Math.min(100, cov)}%`;
+
     const pnlEl = document.getElementById('kpi-port-a-pnl');
     if (pnlEl) {
       const pnlVal = Number(k.port_a_pnl || 0);
-      pnlEl.textContent = ${pnlVal >= 0 ? '+' : ''}NT$ ;
-      pnlEl.className = kpi-num ;
+      const isGainPnl = pnlVal >= 0;
+      pnlEl.textContent = `${isGainPnl ? '+' : ''}NT$ ${pnlVal.toLocaleString()}`;
+      pnlEl.className = `kpi-num ${isGainPnl ? 'positive' : 'warning'}`;
     }
     const gainBadge = document.querySelector('#tab-overview .kpi-card:nth-child(2) .gain-badge');
     if (gainBadge && k.port_a_pnl_pct !== undefined) {
-      gainBadge.textContent = ${Number(k.port_a_pnl_pct) >= 0 ? '+' : ''}% 獲利;
+      const pnlPct = Number(k.port_a_pnl_pct);
+      gainBadge.textContent = `${pnlPct >= 0 ? '+' : ''}${pnlPct.toFixed(2)}% 獲利`;
     }
     const subMutedA = document.querySelector('#tab-overview .kpi-card:nth-child(2) .sub-muted');
     if (subMutedA && data.portfolios_overview) {
       const portA = data.portfolios_overview.find(p => p.code === 'PORT-A');
-      if (portA) subMutedA.textContent = 總市值: NT$ ;
+      if (portA) subMutedA.textContent = `總市值: NT$ ${Number(portA.value || 0).toLocaleString()}`;
     }
 
     const goldEl = document.getElementById('kpi-gold-pct');
     if (goldEl) {
       const gPct = Number(k.gold_pct || 0);
-      goldEl.textContent = ${gPct.toFixed(2)}%;
+      goldEl.textContent = `${gPct.toFixed(2)}%`;
       const alertPill = document.querySelector('#tab-overview .kpi-card:nth-child(3) .alert-pill');
       if (alertPill) {
         alertPill.textContent = gPct > 12.0 ? '⚠️ 超出上限 (12%)' : '✅ 正常配置區間';
@@ -392,8 +395,7 @@ function renderAll(data) {
     }
 
     const goalYearEl = document.getElementById('kpi-goal-year');
-    if (goalYearEl) goalYearEl.textContent = ${k.estimated_goal_year || 2037} 年;
-  } 年`;
+    if (goalYearEl) goalYearEl.textContent = `${k.estimated_goal_year || '未知'} 年`;
   }
 
   // 3. CIO Summary
